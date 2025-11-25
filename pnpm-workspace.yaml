@@ -1,0 +1,4 @@
+# 激活工作区
+package:
+  - 'packages/*'
+  - 'apps/*'
