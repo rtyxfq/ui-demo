@@ -1,6 +1,10 @@
 - 架构参考：Ant Design (v5) 的源码
 - Node 版本：v22.20.0
   - 它包含了最新的 V8 引擎，对现代 JavaScript 语法（如 ES Modules、Promise API 等）有最好的支持，并且享受官方的长期维护和安全补丁。
+- Monorepo（单体仓库）
+  - 是一个“架构思想”或“管理策略”，而不是一个具体的软件或库。
+  - 工具： pnpm、Turborepo、Lerna、Nx。
+  - 配置： pnpm-workspace.yaml、turbo.json、lerna.json。
 
 1. 基础设施搭建，搞定“骨架” (工程化架构)
 2. 搞定“皮肤” (样式系统)
