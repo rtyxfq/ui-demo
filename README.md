@@ -24,5 +24,6 @@
 │ ├── QA.md - 问题沉淀
 │ └── TerminalCommands.md - 终端命令
 ├── package.json - 组件库配置
+├── pnpm-lock.yaml - pnpm 锁文件
 ├── pnpm-workspace.yaml - pnpm 工作区配置
 └── README.md - 组件库文档
