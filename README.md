@@ -11,12 +11,12 @@
 3. 搞定“原子” (基础组件)
 4. 搞定“交互” (复杂组件)
 
-├──  packages/  -  组件库
-│   ├── ui/ -  组件库代码
-│   └── test/ -  组件库测试代码
-├── playground/ -  组件库演示
-├── package.json -  组件库配置
-├── pnpm-workspace.yaml -  pnpm工作区配置
-├── QA.md -  问题沉淀
-├── README.md -  组件库文档
-└── TerminalCommands.md -  终端命令
+├── packages/ - 组件库
+│ ├── ui/ - 组件库代码
+│ └── test/ - 组件库测试代码
+├── playground/ - 组件库演示
+├── package.json - 组件库配置
+├── pnpm-workspace.yaml - pnpm 工作区配置
+├── QA.md - 问题沉淀
+├── README.md - 组件库文档
+└── TerminalCommands.md - 终端命令
