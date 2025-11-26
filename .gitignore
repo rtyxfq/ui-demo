@@ -1,5 +1,5 @@
 # 根目录下的所有依赖文件
-/node_modules/
+**/node_modules/
 
 # 防止其他包管理器遗留的锁定文件被提交
 package-lock.json
