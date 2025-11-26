@@ -1,0 +1,27 @@
+# 根目录下的所有依赖文件
+/node_modules/
+
+# 防止其他包管理器遗留的锁定文件被提交
+package-lock.json
+npm-shrinkwrap.json
+yarn.lock
+**/package-lock.json
+
+# packages/ui 产物
+packages/ui/dist
+
+# apps/playground 产物
+apps/playground/dist
+
+# Vite 缓存目录
+.vite
+**/cache
+
+# TS 编译信息
+.tsbuildinfo
+
+# macOS
+.DS_Store
+
+# VS Code
+.vscode
