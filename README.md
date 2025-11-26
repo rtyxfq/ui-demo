@@ -5,6 +5,7 @@
   - 是一个“架构思想”或“管理策略”，而不是一个具体的软件或库。
   - 工具： pnpm、Turborepo、Lerna、Nx。
   - 配置： pnpm-workspace.yaml、turbo.json、lerna.json。
+  - "private": true避免将包发布到npm
 
 1. 基础设施搭建，搞定“骨架” (工程化架构)
 2. 搞定“皮肤” (样式系统)
