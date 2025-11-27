@@ -41,14 +41,17 @@
       - 目的：确保组件库的打包产物符合预期的标准，比如将当前tsx/jsx编写的源码转译为可供其他项目（应用）使用的、优化过的js文件（dist/）
       - 工具：packages/ui/package.json 中配置 Vite 库模式 (Library Mode) 或 Rollup。
       - 选择：Vite 库模式 (Library Mode)【✅】
+      - 优点：与apps/playground构建环境一致，且编译速度极快
    2. 样式方案
       - 目的：确定当前组件库样式方案
       - 配置：需要在 packages/ui 中添加相应的构建依赖和配置，如：CSS-in-JS、CSS Modules、Sass/Less等
       - 选择：Sass/Less【✅】
+      - 优点：可轻松实现主题变量、样式复用
    3. 文档系统
       - 目的：确保组件库的文档系统能够【自动】正确生成并展示组件的API文档，以及使用示例
       - 工具：Storybook 或 VitePress/Docusaurus (搭配 docs/ 目录)。
       - 选择：VitePress【✅】
+      - 优点：基于Vite的静态站点生成器，🉑快速创建美观的组件文档（对应docs/ 目录）
 <!-- 开发组件库 -->
 1. 皮肤
 2. 原子
