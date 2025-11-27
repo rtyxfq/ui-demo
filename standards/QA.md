@@ -56,12 +56,13 @@
            - "types": "dist/index.d.ts"   【TS 入口】
            - "exports": "{".": { "import": "./dist/index.es.js", "require": "./dist/index.umd.js" } }
            - "scripts": { "build": "vite build" }
-   1. 样式方案
+        6.  上述依赖安装以后，会发现根目录下pnpm-lock.yaml文件被修改了，这是因为Monorepo 提供了结构，而 pnpm 提供了高效且隔离的管理规则。
+   2. 样式方案
       - 目的：确定当前组件库样式方案
       - 配置：需要在 packages/ui 中添加相应的构建依赖和配置，如：CSS-in-JS、CSS Modules、Sass/Less等
       - 选择：Sass/Less【✅】
       - 优点：可轻松实现主题变量、样式复用
-   2. 文档系统
+   3. 文档系统
       - 目的：确保组件库的文档系统能够【自动】正确生成并展示组件的API文档，以及使用示例
       - 工具：Storybook 或 VitePress/Docusaurus (搭配 docs/ 目录)。
       - 选择：VitePress【✅】
