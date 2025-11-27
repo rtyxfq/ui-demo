@@ -2,9 +2,15 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
+import dts from 'vite-plugin-dts'; // 导入 dts 插件
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    dts({
+      insertTypesEntry: true, // 确保生成一个类型入口文件
+    })
+  ],
   build: {
     lib: {
       // 指定组件库入口
