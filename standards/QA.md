@@ -47,12 +47,21 @@
         1. 创建Vite配置文件：packages/ui/vite.config.ts
         2. 安装依赖packages/ui下执行：pnpm install vite typescript --save-dev
         3. 编译React代码，快速热重载：pnpm install @vitejs/plugin-react --save-dev
-   2. 样式方案
+        4. 安装 React 依赖：pnpm install react react-dom @types/react @types/react-dom --save-dev
+           1. package.json中添加："peerDependencies": {"react": ">=18.0.0","react-dom": ">=18.0.0"},
+        5. package.json中添加：
+           - "type": "module" 【明确是一个ESM包】
+           - "main": "dist/index.umd.js" 【CJS/UMD 入口】
+           - "module": "dist/index.es.js" 【ESM 入口】
+           - "types": "dist/index.d.ts"   【TS 入口】
+           - "exports": "{".": { "import": "./dist/index.es.js", "require": "./dist/index.umd.js" } }
+           - "scripts": { "build": "vite build" }
+   1. 样式方案
       - 目的：确定当前组件库样式方案
       - 配置：需要在 packages/ui 中添加相应的构建依赖和配置，如：CSS-in-JS、CSS Modules、Sass/Less等
       - 选择：Sass/Less【✅】
       - 优点：可轻松实现主题变量、样式复用
-   3. 文档系统
+   2. 文档系统
       - 目的：确保组件库的文档系统能够【自动】正确生成并展示组件的API文档，以及使用示例
       - 工具：Storybook 或 VitePress/Docusaurus (搭配 docs/ 目录)。
       - 选择：VitePress【✅】
