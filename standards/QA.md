@@ -49,14 +49,22 @@
         3. 编译React代码，快速热重载：pnpm install @vitejs/plugin-react --save-dev
         4. 安装 React 依赖：pnpm install react react-dom @types/react @types/react-dom --save-dev
            1. package.json中添加："peerDependencies": {"react": ">=18.0.0","react-dom": ">=18.0.0"},
-        5. package.json中添加：
+        5. 安装类型声明文件插件：pnpm add -D vite-plugin-dts【
+           1. 22.20.0太高⚠️会导致安装失败，切换至18.14.2🉑】
+           2. 安装成功后创建tsconfig.json文件
+           3. 配置类型声明插件：将 vite-plugin-dts 添加到 vite.config.ts 中
+        6. package.json中添加：
            - "type": "module" 【明确是一个ESM包】
            - "main": "dist/index.umd.js" 【CJS/UMD 入口】
            - "module": "dist/index.es.js" 【ESM 入口】
            - "types": "dist/index.d.ts"   【TS 入口】
            - "exports": "{".": { "import": "./dist/index.es.js", "require": "./dist/index.umd.js" } }
            - "scripts": { "build": "vite build" }
-        6.  上述依赖安装以后，会发现根目录下pnpm-lock.yaml文件被修改了，这是因为Monorepo 提供了结构，而 pnpm 提供了高效且隔离的管理规则。
+        7.  上述依赖安装以后，会发现根目录下pnpm-lock.yaml文件被修改了，这是因为Monorepo 提供了结构，而 pnpm 提供了高效且隔离的管理规则。
+        8.  packages/ui下执行：pnpm build
+            1.  会在packages/ui下生成dist目录，dist目录下生成了index.umd.js、index.es.js、index.d.ts、Button.d.ts
+            2.  此时apps/playground下执行：pnpm dev
+        9.  验证及使用组件库
    2. 样式方案
       - 目的：确定当前组件库样式方案
       - 配置：需要在 packages/ui 中添加相应的构建依赖和配置，如：CSS-in-JS、CSS Modules、Sass/Less等
