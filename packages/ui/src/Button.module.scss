@@ -1,0 +1,33 @@
+@use "sass:color"; // 导入颜色模块，使用命名空间 color.
+
+// 1. 使用 SCSS 变量和嵌套
+$primary-color: #007bff;
+$border-radius: 4px;
+
+// 2. 定义一个 SCSS 混入 (Mixin)，方便复用
+@mixin disabled-style {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+// 3. 使用 CSS Modules 的类名
+.button {
+  background-color: $primary-color;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: $border-radius;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  // 4. 使用 SCSS 嵌套来处理 hover 状态
+  &:hover {
+    // background-color: darken($primary-color, 10%);
+    background-color: color.adjust($primary-color, $lightness: -10%);
+  }
+
+}
+
+.disabled {
+  @include disabled-style;
+}
