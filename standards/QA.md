@@ -65,6 +65,12 @@
             1.  会在packages/ui下生成dist目录，dist目录下生成了index.umd.js、index.es.js、index.d.ts、Button.d.ts
             2.  此时apps/playground下执行：pnpm dev
         9.  验证及使用组件库
+            1.  比如ui/Button组件使其具有接收children、rest等能力
+            2.  apps/playground/src/App.tsx内，调用Button组件以及传入props
+            3.  Monorepo下执行：pnpm install
+            4.  packages/ui下执行：pnpm build
+            5.  apps/playground下执行：pnpm dev
+            6.  验证组件能力
    2. 样式方案
       - 目的：确定当前组件库样式方案
       - 配置：需要在 packages/ui 中添加相应的构建依赖和配置，如：CSS-in-JS、CSS Modules、Sass/Less等
