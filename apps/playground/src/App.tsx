@@ -1,5 +1,5 @@
 import { Button } from '@ui-demo/ui';
-import './App.css'
+import '@ui-demo/ui/dist/ui.css';
 
 function App() {
 
