@@ -11,8 +11,9 @@
          3. 框架：React
          4. 变体：TypeScript
    2. 激活 Monorepo 的魔法 (Workspace Protocol)
-      1. 在生成的playground/package.json中，dependencies中添加："@ui-demo/ui": "workspace:*"
-      2. 返回至根目录下执行：pnpm install进行激活
+      1. 魔法🪄：指一个子包引用另一个子包时，不需发布到npm仓库，而是直接引用本地文件
+      2. 在生成的playground/package.json中，dependencies中添加："@ui-demo/ui": "workspace:*"
+      3. 返回至根目录下执行：pnpm install进行激活
          1. 如果过程中报错，确认是否缺少packages/ui/package.json相关配置
          2. packages/ui/package.json相关配置确保name为@ui-demo/ui，因为pnpm 在执行 install 时，拿着消费者（@ui-demo/ui）给出的标签去工作区找，发现 packages/ui 贴的标签却是 ui，所以报错找不到匹配项。
          3. 如果遇到fsevents问题，可在根目录下执行：pnpm install --no-optional，--no-optional 标志会告诉 pnpm：如果一个包被标记为 optionalDependencies（例如 fsevents），并且它在安装过程中失败了（无论是网络错误还是你遇到的 API 冲突），pnpm 应该忽略这个错误，并继续完成主依赖（以及我们的 workspace:* 软链接）的安装。
@@ -42,6 +43,10 @@
       - 工具：packages/ui/package.json 中配置 Vite 库模式 (Library Mode) 或 Rollup。
       - 选择：Vite 库模式 (Library Mode)【✅】
       - 优点：与apps/playground构建环境一致，且编译速度极快
+      - 配置流程🍊
+        1. 创建Vite配置文件：packages/ui/vite.config.ts
+        2. 安装依赖packages/ui下执行：pnpm install vite typescript --save-dev
+        3. 编译React代码，快速热重载：pnpm install @vitejs/plugin-react --save-dev
    2. 样式方案
       - 目的：确定当前组件库样式方案
       - 配置：需要在 packages/ui 中添加相应的构建依赖和配置，如：CSS-in-JS、CSS Modules、Sass/Less等
