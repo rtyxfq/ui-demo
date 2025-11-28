@@ -1,10 +1,12 @@
+// packages/ui/src/components/Button/index.module.scss
+
 @use "sass:color"; // 导入颜色模块，使用命名空间 color.
 @use "../../styles/theme.scss" as theme; // 使用 @use 引入主题，并命名为 'theme'
 
 // 1. 使用 SCSS 变量和嵌套
 // $primary-color: #007bff;
 $primary-color: theme.$global-primary-color;
-$border-radius: 4px;
+$border-radius: theme.$global-spacing-unit;
 
 // 2. 定义一个 SCSS 混入 (Mixin)，方便复用
 @mixin disabled-style {
@@ -15,12 +17,17 @@ $border-radius: 4px;
 // 3. 使用 CSS Modules 的类名
 .button {
   background-color: $primary-color;
-  color: white;
-  padding: 8px 16px;
+  color: theme.$global-primary-text;
+  padding: theme.$global-spacing-unit * 1.5 theme.$global-spacing-unit * 3;
   border: none;
   border-radius: $border-radius;
   cursor: pointer;
-  transition: background-color 0.2s;
+  // 默认样式：外凸阴影 (Skeuomorphism default state: outer convex shadow)
+  box-shadow:
+      9px 9px 16px theme.$global-dark-shadow,  /* 底部右侧深阴影 */
+      -9px -9px 16px theme.$global-light-source; /* 顶部左侧亮高光 */
+
+  transition: all 0.2s ease;
 
   // 4. 使用 SCSS 嵌套来处理 hover 状态
   &:hover {
@@ -28,7 +35,15 @@ $border-radius: 4px;
     background-color: color.adjust($primary-color, $lightness: -10%);
     // background-color: adjust-color($primary-color, $lightness: -10%);
   }
+}
 
+// 拟物化交互状态：按下时 (The pressed state: inner concave shadow)
+.button:active,
+.button.pressed {
+  // 模拟物理下陷，将阴影反转为内凹 (inset)
+  box-shadow:
+      inset 5px 5px 10px theme.$global-dark-shadow, /* 内凹深阴影 */
+      inset -5px -5px 10px theme.$global-light-source; /* 内凹亮高光 */
 }
 
 .disabled {
