@@ -118,8 +118,13 @@
               4. 修正 VitePress 路由配置：apps/docs/.vitepress/config.js，确保 sidebar 和 nav 配置中的链接 不带任何后缀
               5. 确认Button.md是否存在于 apps/docs/components 下‼️
            7. 成功启动VitePress解决404问题后，如果访问Button模块import { Button } from '@ui-demo/ui';解析失败
-              1. 原因：alias配置错误
+              1. 原因：alias配置错误，导入包路径不被识别
+                 1. TODO：为什么不被识别？
               2. 修正：apps/docs/vite.config.js下配置 '@ui-demo/ui': '/Users/ymc/Study/React/ui-demo/packages/ui/src/Button.tsx',
+           8. 初始文档首页
+              1. VitePress 默认主题: VitePress 附带了一个默认主题，它会自动为根目录下的 index.md 文件应用一个布局。
+              2. 即使index.md文件不存在，也会渲染出基本的结构，导航栏、侧边栏、页脚
+              3. 配置驱动：导航栏和侧边栏是根据apps/docs/.vitepress/config.js 文件中的 nav 和 sidebar 配置生成的‼️
 <!-- 开发组件库 -->
 1. 皮肤
 2. 原子
