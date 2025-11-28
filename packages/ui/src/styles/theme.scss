@@ -1,2 +1,13 @@
 // packages/ui/src/styles/theme.scss
+
+// 基础颜色
 $global-primary-color: #2563eb; // 设定一个蓝色的变量
+// 文本颜色
+$global-primary-text: #ffffff;
+
+// 拟物化光源和阴影基色
+$global-light-source: #ffffff;
+$global-dark-shadow: #a3b1c6;
+
+// 基础间距
+$global-spacing-unit: 8px;
