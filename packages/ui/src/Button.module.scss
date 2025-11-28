@@ -1,7 +1,9 @@
 @use "sass:color"; // 导入颜色模块，使用命名空间 color.
+@use "./styles/theme.scss" as theme; // 使用 @use 引入主题，并命名为 'theme'
 
 // 1. 使用 SCSS 变量和嵌套
-$primary-color: #007bff;
+// $primary-color: #007bff;
+$primary-color: theme.$global-primary-color;
 $border-radius: 4px;
 
 // 2. 定义一个 SCSS 混入 (Mixin)，方便复用
@@ -24,6 +26,7 @@ $border-radius: 4px;
   &:hover {
     // background-color: darken($primary-color, 10%);
     background-color: color.adjust($primary-color, $lightness: -10%);
+    // background-color: adjust-color($primary-color, $lightness: -10%);
   }
 
 }
