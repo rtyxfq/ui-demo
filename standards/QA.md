@@ -126,6 +126,16 @@
               2. 即使index.md文件不存在，也会渲染出基本的结构，导航栏、侧边栏、页脚
               3. 配置驱动：导航栏和侧边栏是根据apps/docs/.vitepress/config.js 文件中的 nav 和 sidebar 配置生成的‼️
 <!-- 开发组件库 -->
-1. 皮肤
-2. 原子
-3. 交互
+3. 皮肤：全局组件库的主题和变量系统
+   1. 定义全局 SCSS 变量
+      1. 创建：packages/ui/src/styles/theme.scss
+   2. 在 VitePress 的 Vite 配置中设置全局自动导入
+      1. apps/docs/.vitepress/config.js 文件，添加 css 配置
+      2. 【❌】配置scss全局变量导入时，如果使用additionalData，以及@import方式，会影响Button.module.scss内【@use "sass:color";】的引入，导致报错，具体处理方案为，去掉【@use "sass:color";】使用到【color.adjust】函数变更为【adjust-color】‼️
+   3. 组件样式中使用全局变量
+      1. 修改 packages/ui/src/Button.module.scss：
+      2. 具体为：@use "sass:color";，同时使用【@use "./styles/theme.scss" as theme; // 使用 @use 引入主题，并命名为 'theme'】
+      3. 使用全局变量：$primary-color: theme.$global-primary-color;
+   4. 检查样式
+4. 原子
+5. 交互
