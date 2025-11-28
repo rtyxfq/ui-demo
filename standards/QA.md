@@ -137,5 +137,10 @@
       2. 具体为：@use "sass:color";，同时使用【@use "./styles/theme.scss" as theme; // 使用 @use 引入主题，并命名为 'theme'】
       3. 使用全局变量：$primary-color: theme.$global-primary-color;
    4. 检查样式
-4. 原子
-5. 交互
+4. 风格：拟物化
+5. 原子层
+   1. Sass Mixin/Function
+6. 交互层
+   1. 维护组件状态
+   2. 事件处理
+   3. 通信
