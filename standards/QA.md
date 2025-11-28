@@ -112,7 +112,15 @@
            4. 创建文档页面 (apps/docs/components/button.md)
            5. 在 apps/docs 目录下创建 vite.config.js
            6. apps/docs下执行：pnpm docs:dev
+              1. 访问后，点击进入Components，路由不匹配
+              2. http://localhost:5174/components/button.html
+              3. VitePress 似乎在寻找一个带有 .html 后缀的页面，而 Markdown 文件是 .md
+              4. 修正 VitePress 路由配置：apps/docs/.vitepress/config.js，确保 sidebar 和 nav 配置中的链接 不带任何后缀
+              5. 确认Button.md是否存在于 apps/docs/components 下‼️
+           7. 成功启动VitePress解决404问题后，如果访问Button模块import { Button } from '@ui-demo/ui';解析失败
+              1. 原因：alias配置错误
+              2. 修正：apps/docs/vite.config.js下配置 '@ui-demo/ui': '/Users/ymc/Study/React/ui-demo/packages/ui/src/Button.tsx',
 <!-- 开发组件库 -->
-3. 皮肤
-4. 原子
-5. 交互
+1. 皮肤
+2. 原子
+3. 交互
