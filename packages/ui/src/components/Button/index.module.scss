@@ -1,5 +1,5 @@
 @use "sass:color"; // 导入颜色模块，使用命名空间 color.
-@use "./styles/theme.scss" as theme; // 使用 @use 引入主题，并命名为 'theme'
+@use "../../styles/theme.scss" as theme; // 使用 @use 引入主题，并命名为 'theme'
 
 // 1. 使用 SCSS 变量和嵌套
 // $primary-color: #007bff;

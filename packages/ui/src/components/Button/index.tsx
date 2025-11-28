@@ -1,4 +1,4 @@
-import styles from './Button.module.scss'; // 导入样式模块
+import styles from './index.module.scss'; // 导入样式模块
 
 const Button = ({
   children,
