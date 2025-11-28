@@ -1,8 +1,6 @@
 // apps/docs/.vitepress/config.js
 import { resolve } from 'path'
 
-console.log('[vitepress-config] loaded from', __filename)
-
 export default {
   title: 'UI Component Library', // 组件库名称
   description: 'Powered by VitePress and React',
@@ -12,10 +10,10 @@ export default {
     resolve: {
       alias: {
         // 把 @ui-demo/ui 指到你真实的 React 源码上
-        // 如果你有 src/index.ts 作为库入口，推荐指向 index.ts
-        // '@ui-demo/ui': resolve(__dirname, '../../packages/ui/src/index.ts'),
-        // '@ui-demo/ui': resolve(__dirname, '../../packages/ui/src/Button.tsx'),
-        '@ui-demo/ui': '/Users/ymc/Study/React/ui-demo/packages/ui/src/Button.tsx',
+
+        // 绝对路径有效✅
+        // '@ui-demo/ui': '/Users/ymc/Study/React/ui-demo/packages/ui/src/Button.tsx',
+        '@ui-demo/ui': '/Users/ymc/Study/React/ui-demo/packages/ui/src/index.ts',
       },
       extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
     },
