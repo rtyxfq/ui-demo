@@ -28,3 +28,11 @@ const ReactButton = Button;
   :props="{ children: 'Monorepo Docs Button', onClick: () => alert('Clicked from Docs!') }"
 >
 </ReactWrapper>
+
+## API
+
+| 属性 | 描述 | 类型 | 默认值 | 版本 |
+| :--- | :--- | :--- | :--- | :--- |
+| disabled | 按钮是否禁用 | `boolean` | `false` | 1.0.0 |
+| className | 自定义样式类名 | `string` | `-` | 1.1.0 |
+| children | 按钮内容 | `ReactNode` | `'Button'` | 1.1.0 |
