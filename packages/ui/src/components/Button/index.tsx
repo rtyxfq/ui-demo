@@ -3,11 +3,13 @@ import styles from './index.module.scss'; // 导入样式模块
 
 // 定义 Button 组件的 props 类型
 interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+  type: 'primary' | 'default';
   children: React.ReactNode;
   disabled?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
+  type,
   children,
   onClick,
   disabled = false,
