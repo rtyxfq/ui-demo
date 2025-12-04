@@ -3,13 +3,13 @@ import styles from './index.module.scss'; // 导入样式模块
 
 // 定义 Button 组件的 props 类型
 interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
-  type: 'primary' | 'default';
+  type: 'primary' | 'default' | 'success'|'danger' | 'warning' | 'text';
   children: React.ReactNode;
   disabled?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
-  type,
+  type = 'normal',
   children,
   onClick,
   disabled = false,
@@ -37,6 +37,7 @@ const Button: React.FC<ButtonProps> = ({
     disabled ? styles.disabled : '', // 禁用样式
     // 如果 isPressed 为 true，添加 .pressed 类名
     isPressed ? styles.pressed : '',
+    styles[type],
     className, // 允许用户传入外部类名
   ].filter(Boolean).join(' ');
 
