@@ -22,13 +22,51 @@ import { Button } from '@ui-demo/ui';
 import { Button } from '@ui-demo/ui'; 
 const ReactButton = Button; 
 </script>
+<div style="display: flex; gap: 20px; flex-wrap: wrap;">
 
-<ReactWrapper 
-  :component="ReactButton" 
-  :props="{ children: 'Monorepo Docs Button', onClick: () => alert('Clicked from Docs!') }"
->
-</ReactWrapper>
+  ### 基础（Default）
 
+  <ReactWrapper 
+    :component="ReactButton" 
+    :props="{ children: 'Default Button', type: 'default', onClick: () => alert('Default') }"
+  />
+
+  ### 主要（Primary）
+
+  <ReactWrapper 
+    :component="ReactButton" 
+    :props="{ children: 'Primary Button', type: 'primary', onClick: () => alert('Primary') }"
+  />
+  
+  ### 成功（Success）
+
+  <ReactWrapper 
+    :component="ReactButton" 
+    :props="{ children: 'Success Button', type: 'success', onClick: () => alert('Success') }"
+  />
+  
+  ### 危险（Danger）
+
+  <ReactWrapper 
+    :component="ReactButton" 
+    :props="{ children: 'Danger Button', type: 'danger', onClick: () => alert('Danger') }"
+  />
+
+  ### 禁用状态
+
+  <ReactWrapper 
+    :component="ReactButton" 
+    :props="{ children: 'Disabled Button', disabled: true }"
+  />
+
+  ### 成功类型下禁用状态
+
+  <ReactWrapper 
+    :component="ReactButton" 
+    :props="{ children: 'Success & Disabled Button', type: 'success', disabled: true }"
+  />
+
+</div>
 ## API
 
 | 属性 | 描述 | 类型 | 默认值 | 版本 |
