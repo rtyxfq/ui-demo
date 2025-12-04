@@ -8,10 +8,20 @@
 $primary-color: theme.$global-primary-color;
 $border-radius: theme.$global-spacing-unit;
 
-// 2. 定义一个 SCSS 混入 (Mixin)，方便复用
-@mixin disabled-style {
-  opacity: 0.6;
-  cursor: not-allowed;
+// 2. 定义一个 SCSS 混入 (Mixin)，方便复用，废弃，使用风格全局常量【❌】
+// @mixin disabled-style {
+//   opacity: 0.6;
+//   cursor: not-allowed;
+// }
+
+// 定义按钮混合方法
+@mixin button-variant($bg-color, $text-color){
+  background-color: $bg-color;
+  color: $text-color;
+  // 自动计算hove 颜色：将背景色稍微调暗 10%
+  &:hover{
+    background-color: color.adjust($bg-color, $lightness: -10%)
+  }
 }
 
 // 3. 使用 CSS Modules 的类名
@@ -47,5 +57,54 @@ $border-radius: theme.$global-spacing-unit;
 }
 
 .disabled {
-  @include disabled-style;
+  // @include disabled-style;
+  @include theme.global-disabled-style;
+
+  // 覆盖拟物化交互，确保禁用时无内凹阴影
+  &:active,
+  &.pressed {
+    // 禁用时只显示默认的外凸阴影
+      box-shadow: 
+          9px 9px 16px theme.$global-dark-shadow,  
+          -9px -9px 16px theme.$global-light-source;
+  }
+}
+
+// type相关
+// 普通操作，优先级最低，用于次要动作或取消。
+.default{
+  @include button-variant(theme.$global-primary-color, theme.$global-primary-text);
+}
+// 主要操作，最高优先级，驱动用户完成主要目标。
+.primary{
+  @include button-variant(theme.$global-primary-color, theme.$global-primary-text);
+}
+.success{
+  @include button-variant(theme.$global-success-color, theme.$global-primary-text);
+}
+.danger{
+  @include button-variant(theme.$global-danger-color, theme.$global-primary-text);
+}
+.warning{
+  @include button-variant(theme.$global-warning-color, theme.$global-primary-text);
+}
+.text{
+  // 文本按钮不需要背景和阴影，仅在 hover 时有颜色变化
+    background-color: transparent;
+    color: theme.$global-primary-color; // 文本颜色使用主题色
+
+    // 覆盖基础的 box-shadow (因为 text 按钮不需要默认阴影)
+    box-shadow: none;
+
+    // 文本按钮的 hover 效果通常是文本变色或背景变浅
+    &:hover {
+        background-color: color.adjust(theme.$global-primary-color, $alpha: -0.9); // 非常浅的主题色背景
+        color: theme.$global-primary-color;
+    }
+
+    // 🚨 Text 按钮的 Pressed 状态：模拟文本下沉
+    &.pressed {
+        // 可以让文本颜色变深，或者添加一个轻微的 inset 阴影
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+    }
 }
