@@ -4,6 +4,9 @@
 $global-primary-color: #2563eb; // 设定一个蓝色的变量
 // 文本颜色
 $global-primary-text: #ffffff;
+$global-success-color: #22c55e; // 成功的绿色
+$global-danger-color: #ef4444;   // 危险的红色
+$global-warning-color: #f97316; // 警告的橙色
 
 // 拟物化光源和阴影基色
 $global-light-source: #ffffff;
@@ -11,3 +14,13 @@ $global-dark-shadow: #a3b1c6;
 
 // 基础间距
 $global-spacing-unit: 8px;
+
+// 通用禁用样式 Mixin
+@mixin global-disabled-style {
+  // 不推荐灰色风格，会使用户无法区分禁用前的类型
+    opacity: 0.5; // 使用统一的透明度值
+    cursor: not-allowed;
+    pointer-events: none; // 确保彻底禁用点击事件
+    // 对于拟物化，我们可能还需要添加一个灰色的阴影效果
+    filter: grayscale(30%); // 降低饱和度，显得更“死气沉沉”
+}
