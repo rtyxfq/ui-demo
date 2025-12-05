@@ -21,6 +21,7 @@ import { Button } from '@ui-demo/ui';
 <script setup> 
 import { Button } from '@ui-demo/ui'; 
 const ReactButton = Button; 
+const ReactLink = Button; 
 </script>
 <div style="display: flex; gap: 20px; flex-wrap: wrap;">
 
@@ -55,6 +56,20 @@ const ReactButton = Button;
   />
 
 </div>
+
+## 链接
+<div style="display: flex; gap: 20px; flex-wrap: wrap;">
+  <ReactWrapper
+    :component="ReactLink"
+    :props="{ children: '链接', href: 'https://ui-demo.vercel.app' }"
+  />
+
+  <ReactWrapper
+    :component="ReactLink"
+    :props="{ children: '链接打开新窗口', href: 'https://ui-demo.vercel.app',  target: '_blank' }"
+  />
+</div>
+
 
 ## API
 
