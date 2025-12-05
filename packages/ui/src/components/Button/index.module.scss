@@ -22,6 +22,11 @@ $border-radius: theme.$global-spacing-unit;
   &:hover{
     background-color: color.adjust($bg-color, $lightness: -10%)
   }
+
+  &:hover {
+    background-color: color.adjust($bg-color, $lightness: -10%);
+    color: $text-color; // 强制设置文本颜色，防止被 VitePress 覆盖
+  }
 }
 
 // 3. 使用 CSS Modules 的类名
@@ -38,6 +43,7 @@ $border-radius: theme.$global-spacing-unit;
       -9px -9px 16px theme.$global-light-source; /* 顶部左侧亮高光 */
 
   transition: all 0.2s ease;
+  font-weight: 400;
 
   // 4. 使用 SCSS 嵌套来处理 hover 状态
   &:hover {
@@ -52,8 +58,8 @@ $border-radius: theme.$global-spacing-unit;
 .button.pressed {
   // 模拟物理下陷，将阴影反转为内凹 (inset)
   box-shadow:
-      inset 5px 5px 10px theme.$global-dark-shadow, /* 内凹深阴影 */
-      inset -5px -5px 10px theme.$global-light-source; /* 内凹亮高光 */
+    inset 5px 5px 10px theme.$global-dark-shadow, /* 内凹深阴影 */
+    inset -5px -5px 10px theme.$global-light-source; /* 内凹亮高光 */
 }
 
 .disabled {
@@ -107,4 +113,20 @@ $border-radius: theme.$global-spacing-unit;
         // 可以让文本颜色变深，或者添加一个轻微的 inset 阴影
         box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
     }
+}
+
+// 确保 button 和 a 都能继承基础样式
+.button,
+a.button {
+  // 基础样式：
+  text-decoration: none; // 移除链接下划线
+  // 如果需要，可以覆盖链接的默认边距
+  display: inline-flex; // 让链接像按钮一样布局
+}
+
+.default,
+a.default {
+  @include button-variant(theme.$global-primary-color, theme.$global-primary-text);
+  font-weight: theme.$global-font-weight;
+  font-size: theme.$global-font-size;
 }
