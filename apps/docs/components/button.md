@@ -5,13 +5,14 @@
 ## 导入
 
 ```ts
-import { Button } from '@ui-demo/ui';
+import { Button, Icon } from '@ui-demo/ui';
 ```
 
 ## React 使用示例
 
 ```tsx
 <Button onClick={() => console.log('Click event fired')}>
+  <Icon name="download" size="medium" style={{ marginRight: '8px' }} />
   Monorepo Docs Button
 </Button>
 ```
