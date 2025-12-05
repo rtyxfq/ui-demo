@@ -29,4 +29,5 @@
 ├── package.json - 组件库配置
 ├── pnpm-lock.yaml - pnpm 锁文件
 ├── pnpm-workspace.yaml - pnpm 工作区配置
-└── README.md - 组件库文档
+├── README.md - 组件库文档
+└── svgr.config.js - SVGR 配置优化
