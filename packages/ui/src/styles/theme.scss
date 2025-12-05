@@ -15,12 +15,27 @@ $global-dark-shadow: #a3b1c6;
 // 基础间距
 $global-spacing-unit: 8px;
 
+// 基础字体大小
+$global-font-size: 14px;
+// 基础圆角大小
+$global-radius: 4px;
+// 基础边框宽度
+$global-border-width: 1px;
+// 基础边框颜色
+$global-border-color: #d0d5dd;
+// 基础边框样式
+$global-border-style: solid;
+// 基础边框阴影
+$global-border-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
+// 基础字重
+$global-font-weight: 400;
+
 // 通用禁用样式 Mixin
 @mixin global-disabled-style {
   // 不推荐灰色风格，会使用户无法区分禁用前的类型
-    opacity: 0.5; // 使用统一的透明度值
-    cursor: not-allowed;
-    pointer-events: none; // 确保彻底禁用点击事件
-    // 对于拟物化，我们可能还需要添加一个灰色的阴影效果
-    filter: grayscale(30%); // 降低饱和度，显得更“死气沉沉”
+  opacity: 0.5; // 使用统一的透明度值
+  cursor: not-allowed;
+  pointer-events: none; // 确保彻底禁用点击事件
+  // 对于拟物化，我们可能还需要添加一个灰色的阴影效果
+  filter: grayscale(30%); // 降低饱和度，显得更“死气沉沉”
 }
