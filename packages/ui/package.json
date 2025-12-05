@@ -14,7 +14,8 @@
     "./dist/ui.css": "./dist/ui.css"
   },
   "scripts": {
-    "build": "vite build"
+    "build": "vite build",
+    "generate:icons": "svgr --config-file ../../svgr.config.js -d src/components/Icon/generated -- src/assets/icons"
   },
   "keywords": [],
   "author": "",
@@ -29,5 +30,8 @@
     "typescript": "~5.9.3",
     "vite": "^7.2.4",
     "vite-plugin-dts": "^4.5.4"
+  },
+  "dependencies": {
+    "@svgr/cli": "^8.1.0"
   }
 }
