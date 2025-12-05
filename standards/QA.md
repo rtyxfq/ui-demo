@@ -140,6 +140,20 @@
 4. 风格：拟物化
 5. 原子层
    1. Sass Mixin/Function
+   2. Icon实现
+      1. 资源库：https://lucide.dev/icons/
+      2. 下载所需icon对应的svg文件
+      3. 将svg文件转换为React组件
+         1. SVGR方案
+            1. 在 packages/ui 目录下执行（如果配置了工作区）：pnpm add @svgr/cli【Node: 18.14.2✅】
+            2. 如果没有配置工作区则在 Monorepo 根目录执行：pnpm add -w @svgr/cli
+            3. packages/ui/package.json中添加："generate:icons": "svgr --config-file ../../svgr.config.js -d src/components/Icon/generated -- src/assets/icons"
+            4. SVGR 配置优化 (svgr.config.js)(放在 Monorepo 根目录)
+            5. 配置完成后，进入 packages/ui 目录并运行脚本：pnpm run generate:icons
+            6. Icon 组件封装：packages/ui/src/components/Icon/index.tsx 来封装所有生成的图标
+      4. 使用icon组件【demo】
+         1. 确保icon导出packages/ui/src/index.ts：export * from './components/Icon/index.tsx';
+         2. // packages/ui/src/components/Button/Demo.tsx (或者直接在文档 demo 中)
 6. 交互层
    1. 维护组件状态
    2. 事件处理
