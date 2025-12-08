@@ -23,6 +23,7 @@ import { Button, Icon } from '@ui-demo/ui';
 import { Button } from '@ui-demo/ui'; 
 const ReactButton = Button; 
 const ReactLink = Button; 
+import { ButtonIconDemo } from './ButtonIconDemo';
 </script>
 <div style="display: flex; gap: 20px; flex-wrap: wrap;">
 
@@ -71,6 +72,14 @@ const ReactLink = Button;
   />
 </div>
 
+## 图标
+
+<div style="display: flex; gap: 20px; flex-wrap: wrap;">
+  <ReactWrapper
+    :component="ButtonIconDemo"
+    :props="{type: 'primary', onClick: () => alert('Download') }"
+  />
+</div>
 
 ## API
 
