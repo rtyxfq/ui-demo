@@ -5,14 +5,60 @@ import styles from './index.module.scss';
 
 // 导入所有生成的图标
 import Birdhouse from './generated/Birdhouse';
-import Home from './generated/Home';
-// ... 导入其他图标 ...
+import Car from './generated/Car';
+import Check from './generated/Check';
+import Circle from './generated/Circle';
+import CircleDot from './generated/CircleDot';
+import CircleX from './generated/CircleX';
+import Download from './generated/Download';
+import FilePenLine from './generated/FilePenLine';
+import FileText from './generated/FileText';
+import Info from './generated/Info';
+import LoaderCircle from './generated/LoaderCircle';
+import Loader from './generated/Loader';
+import Save from './generated/Save';
+import Search from './generated/Search';
+import SmilePlus from './generated/SmilePlus';
+import SquareCheck from './generated/SquareCheck';
+import SquareDashed from './generated/SquareDashed';
+import SquareX from './generated/SquareX';
+import Square from './generated/Square';
+import Star from './generated/Star';
+import Trash2 from './generated/Trash2';
+import Upload from './generated/Upload';
+import UserMinus from './generated/UserMinus';
+import Users from './generated/Users';
+import Volume2 from './generated/Volume2';
+import VolumeX from './generated/VolumeX';
 
 // 映射图标名称到组件
 const iconMap = {
   birdhouse: Birdhouse,
-  home: Home,
-  // ...
+  car: Car,
+  check: Check,
+  circle: Circle,
+  circleDot: CircleDot,
+  circleX: CircleX,
+  download: Download,
+  filePenLine: FilePenLine,
+  fileText: FileText,
+  info: Info,
+  loaderCircle: LoaderCircle,
+  loader: Loader,
+  save: Save,
+  search: Search,
+  smilePlus: SmilePlus,
+  squareCheck: SquareCheck,
+  squareDashed: SquareDashed,
+  squareX: SquareX,
+  square: Square,
+  star: Star,
+  trash2: Trash2,
+  upload: Upload,
+  userMinus: UserMinus,
+  users: Users,
+  volume2: Volume2,
+  volumeX: VolumeX,
 };
 
 export type IconName = keyof typeof iconMap;
