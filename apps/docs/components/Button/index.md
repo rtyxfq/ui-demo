@@ -19,42 +19,63 @@ import { Button, Icon } from '@ui-demo/ui';
 
 ## 类型
 
-<script setup> 
-import { Button } from '@ui-demo/ui'; 
-const ReactButton = Button; 
-const ReactLink = Button; 
+<script setup>
+import { Button } from '@ui-demo/ui';
+const ReactButton = Button;
+const ReactLink = Button;
 import { ButtonIconDemo } from './ButtonIconDemo';
 </script>
 <div style="display: flex; gap: 20px; flex-wrap: wrap;">
 
-  <ReactWrapper 
-    :component="ReactButton" 
-    :props="{ children: '基础（Default）', type: 'default', onClick: () => alert('Default') }"
+  <ReactWrapper
+    :component="ReactButton"
+    :props="{
+      children: '基础（Default）',
+      type: 'default',
+      onClick: () => alert('Default')
+    }"
   />
 
-  <ReactWrapper 
-    :component="ReactButton" 
-    :props="{ children: '主要（Primary）', type: 'primary', onClick: () => alert('Primary') }"
-  />
-  
-  <ReactWrapper 
-    :component="ReactButton" 
-    :props="{ children: '成功（Success）', type: 'success', onClick: () => alert('Success') }"
-  />
-  
-  <ReactWrapper 
-    :component="ReactButton" 
-    :props="{ children: '危险（Danger）', type: 'danger', onClick: () => alert('Danger') }"
+  <ReactWrapper
+    :component="ReactButton"
+    :props="{
+      children: '主要（Primary）',
+      type: 'primary',
+      onClick: () => alert('Primary')
+    }"
   />
 
-  <ReactWrapper 
-    :component="ReactButton" 
-    :props="{ children: '禁用状态（Disabled）', disabled: true }"
+  <ReactWrapper
+    :component="ReactButton"
+    :props="{
+      children: '成功（Success）',
+      type: 'success',
+      onClick: () => alert('Success')
+    }"
   />
 
-  <ReactWrapper 
-    :component="ReactButton" 
-    :props="{ children: '成功类型下禁用状态', type: 'success', disabled: true }"
+  <ReactWrapper
+    :component="ReactButton"
+    :props="{
+      children: '危险（Danger）',
+      type: 'danger', onClick: () => alert('Danger')
+    }"
+  />
+
+  <ReactWrapper
+    :component="ReactButton"
+    :props="{
+      children: '禁用状态（Disabled）',
+      disabled: true
+    }"
+  />
+
+  <ReactWrapper
+    :component="ReactButton"
+    :props="{
+      children: '成功类型下禁用状态',
+      type: 'success',disabled: true
+    }"
   />
 
 </div>
@@ -63,12 +84,21 @@ import { ButtonIconDemo } from './ButtonIconDemo';
 <div style="display: flex; gap: 20px; flex-wrap: wrap;">
   <ReactWrapper
     :component="ReactLink"
-    :props="{ children: '链接', href: 'https://ui-demo.vercel.app' }"
+    :props="{
+      children: '链接',
+      type: 'link',
+      href: 'https://ui-demo.vercel.app'
+    }"
   />
 
   <ReactWrapper
     :component="ReactLink"
-    :props="{ children: '链接打开新窗口', href: 'https://ui-demo.vercel.app',  target: '_blank' }"
+    :props="{
+      children: '链接打开新窗口',
+      href: 'https://ui-demo.vercel.app',
+      target: '_blank',
+      type: 'link'
+    }"
   />
 </div>
 
@@ -77,7 +107,10 @@ import { ButtonIconDemo } from './ButtonIconDemo';
 <div style="display: flex; gap: 20px; flex-wrap: wrap;">
   <ReactWrapper
     :component="ButtonIconDemo"
-    :props="{type: 'primary', onClick: () => alert('Download') }"
+    :props="{
+      type: 'primary',
+      onClick: () => alert('Download')
+    }"
   />
 </div>
 
