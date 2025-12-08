@@ -114,19 +114,13 @@ $border-radius: theme.$global-spacing-unit;
         box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
     }
 }
-
-// 确保 button 和 a 都能继承基础样式
-.button,
-a.button {
+.link,
+a.link {
   // 基础样式：
   text-decoration: none; // 移除链接下划线
   // 如果需要，可以覆盖链接的默认边距
   display: inline-flex; // 让链接像按钮一样布局
-}
-
-.default,
-a.default {
-  @include button-variant(theme.$global-primary-color, theme.$global-primary-text);
   font-weight: theme.$global-font-weight;
   font-size: theme.$global-font-size;
+  @include button-variant(theme.$global-primary-color, theme.$global-primary-text);
 }
