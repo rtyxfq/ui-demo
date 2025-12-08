@@ -74,7 +74,17 @@ import { ButtonIconDemo } from './ButtonIconDemo';
     :component="ReactButton"
     :props="{
       children: '成功类型下禁用状态',
-      type: 'success',disabled: true
+      type: 'success',
+      disabled: true
+    }"
+  />
+
+
+  <ReactWrapper
+    :component="ReactButton"
+    :props="{
+      children: '文本类型',
+      type: 'text',
     }"
   />
 
