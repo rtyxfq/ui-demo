@@ -8,6 +8,7 @@ interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
   href?: string;
   target?: string;
+  size?: 'default' | 'mini' | 'small' | 'medium' | 'large';
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -18,6 +19,7 @@ const Button: React.FC<ButtonProps> = ({
   className,
   href,
   target,
+  size = 'default',
   ...rest
 }) => {
   // 1. 追踪按钮是否被按下的状态
@@ -35,6 +37,8 @@ const Button: React.FC<ButtonProps> = ({
     if (disabled) return;
     setIsPressed(false);
   };
+
+  const sizeClass = size !== 'default' ? styles[size] : ''; // 🚨 只有非 default 尺寸才添加类名
   // 根据是否禁用添加不同的类名
   const elementClasses = [
     styles.button, // 基础样式类
@@ -43,6 +47,7 @@ const Button: React.FC<ButtonProps> = ({
     isPressed ? styles.pressed : '',
     styles[type],
     className, // 允许用户传入外部类名
+    sizeClass
   ].filter(Boolean).join(' ');
 
   // 3. 🚨 核心：条件渲染逻辑
