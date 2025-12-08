@@ -79,7 +79,6 @@ import { ButtonIconDemo } from './ButtonIconDemo';
     }"
   />
 
-
   <ReactWrapper
     :component="ReactButton"
     :props="{
@@ -124,6 +123,50 @@ import { ButtonIconDemo } from './ButtonIconDemo';
   />
 </div>
 
+## 尺寸
+
+<div style="display: flex; gap: 20px; flex-wrap: wrap;">
+  <ReactWrapper
+    :component="ReactButton"
+    :props="{
+      children: '默认',
+      type: 'primary',
+    }"
+  />
+  <ReactWrapper
+    :component="ReactButton"
+    :props="{
+      children: '大（Large）',
+      type: 'primary',
+      size: 'large'
+    }"
+  />
+  <ReactWrapper
+    :component="ReactButton"
+    :props="{
+      children: '中（Medium）',
+      type: 'primary',
+      size: 'medium'
+    }"
+  />
+  <ReactWrapper
+    :component="ReactButton"
+    :props="{
+      children: '小（Small）',
+      type: 'primary',
+      size: 'small'
+    }"
+  />
+  <ReactWrapper
+    :component="ReactButton"
+    :props="{
+      children: '迷你（Mini）',
+      type: 'primary',
+      size: 'mini'
+    }"
+  />
+</div>
+
 ## API
 
 | 属性 | 描述 | 类型 | 默认值 | 版本 |
@@ -131,4 +174,5 @@ import { ButtonIconDemo } from './ButtonIconDemo';
 | disabled | 按钮是否禁用 | `boolean` | `false` | 1.0.0 |
 | className | 自定义样式类名 | `string` | `-` | 1.1.0 |
 | children | 按钮内容 | `ReactNode` | `'Button'` | 1.1.0 |
-| type | 按钮类型 | `string` | `'primary'、'default' 、 'success'、'danger' 、 'warning' 、 'text'` | 1.1.0 |
+| type | 按钮类型 | `string` | `'primary'、'default' 、'success'、'danger' 、 'warning' 、 'text'` | 1.1.0 |
+| size | 按钮大小 | `string` | `'mini'、'small'、'medium'、'large'` | 1.1.0 |
