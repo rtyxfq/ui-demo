@@ -7,7 +7,7 @@ export const ButtonIconDemo = () => {
   return (
     <div style={{ display: 'flex', gap: '20px' }}>
       {/* 演示 1: 带图标和文字 */}
-      <Button type="primary" onClick={() => alert('Download')}>
+      <Button type="primary" onClick={() => alert('Download')} style={{ display: 'flex', flexWrap: 'nowrap' }}>
         <Icon name="download" size="medium" style={{ marginRight: '8px' }} />
         下载
       </Button>
