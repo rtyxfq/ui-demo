@@ -33,7 +33,7 @@ $border-radius: theme.$global-spacing-unit;
 .button {
   background-color: $primary-color;
   color: theme.$global-primary-text;
-  padding: theme.$global-spacing-unit * 1.5 theme.$global-spacing-unit * 3;
+  padding: theme.$global-spacing-unit * 1 theme.$global-spacing-unit * 2;
   border: none;
   border-radius: $border-radius;
   cursor: pointer;
@@ -123,4 +123,26 @@ a.link {
   font-weight: theme.$global-font-weight;
   font-size: theme.$global-font-size;
   @include button-variant(theme.$global-primary-color, theme.$global-primary-text);
+}
+// 尺寸相关
+.mini {
+  // 尺寸最小
+  padding: theme.$global-spacing-unit * 0.25 theme.$global-spacing-unit * 1;
+  font-size: theme.$global-font-size * 0.85; 
+  // 🚨 移除 @include button-variant(...)
+}
+
+.small {
+  padding: theme.$global-spacing-unit * 0.5 theme.$global-spacing-unit * 1.5;
+  font-size: theme.$global-font-size * 0.9;
+}
+
+.medium { // 🚨 修正拼写：medium
+  padding: theme.$global-spacing-unit * 1 theme.$global-spacing-unit * 2;
+  font-size: theme.$global-font-size; // 或略微增大
+}
+
+.large {
+  padding: theme.$global-spacing-unit * 1.5 theme.$global-spacing-unit * 3;
+  font-size: theme.$global-font-size * 1.1;
 }
