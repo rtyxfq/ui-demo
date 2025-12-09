@@ -33,3 +33,12 @@ import { Icon } from '@ui-demo/ui';
     <span style="font-size: 12px; margin-top: 8px; color: #555;">{{ name }}</span>
   </div>
 </div>
+
+## API
+| 属性 | 描述 | 类型 | 默认值 | 版本 |
+| :--- | :--- | :--- | :--- | :--- |
+| name | 图标名称 | string | - | 1.0.0 |
+| size | 图标大小 | string | `'small'、'medium'、'large'` | 1.0.0 |
+| className | 图标类名 | string | - | 1.0.0 |
+| variant | 图标样式 | string | `'default'、 'primary'、 'inset'` | 1.0.0 |
+| spin | 是否旋转 | boolean | `false` | 1.0.0 |
