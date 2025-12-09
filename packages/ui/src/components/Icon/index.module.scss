@@ -1,3 +1,15 @@
+// 引入主题变量
+@use '../../styles/theme.scss' as theme;
+
+// 基础样式（应用到IconComponent 的 className）
+.base{
+  // 确保 Icon 颜色可以继承父组件的 color 属性继承（例如 Button 的白色）
+  color: currentColor;
+  display: inline-block;
+  vertical-align: middle;
+  transition: all 0.3s ease;
+}
+
 // 大小
 .small{
   width: 1.25rem; // 20px
@@ -10,6 +22,47 @@
 .large{
   width: 2rem; // 32px
   height: 2rem; // 32px
+}
+
+// 拟物化容器/外观变体
+.default,
+.inset{
+  padding: 4px; // 小小的填充
+  border-radius: 4px;
+  // 使用内凹阴影，模拟嵌入效果
+  box-shadow:
+    inset 2px 2px 4px theme.$global-dark-shadow,
+    inset -2px -2px 4px theme.$global-light-source;
+
+  // 默认使用主题色文本，但稍微柔和一些
+  color: theme.$global-primary-color;
+
+  // 悬停时，切换为外凸（浮起）
+  &:hover {
+    box-shadow:
+      4px 4px 8px theme.$global-dark-shadow,
+      -4px -4px 8px theme.$global-light-source;
+    color: theme.$global-primary-color; /* 悬停时颜色变亮 */
+  }
+}
+// 🚨 主题色凸出式 Icon (模拟浮起)
+.primary {
+  padding: 4px;
+  border-radius: 4px;
+  // 使用外凸阴影，模拟浮出效果
+  box-shadow:
+    4px 4px 8px theme.$global-dark-shadow,
+    -4px -4px 8px theme.$global-light-source;
+
+  // 使用主题色作为 Icon 颜色
+  color: theme.$global-primary-color;
+
+  &:hover {
+    // 悬停时稍微变深，或增强阴影
+    box-shadow:
+      6px 6px 12px theme.$global-dark-shadow,
+      -6px -6px 12px theme.$global-light-source;
+  }
 }
 
 // 旋转
