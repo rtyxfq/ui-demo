@@ -174,7 +174,17 @@ import { ButtonIconDemo } from './ButtonIconDemo';
     :props="{
       children: '加载中',
       type: 'primary',
-      loading: true
+      loading: true,
+    }"
+  />
+
+  <ReactWrapper
+    :component="ReactButton"
+    :props="{
+      children: '加载中',
+      type: 'primary',
+      loading: true,
+      spin: true
     }"
   />
 </div>
