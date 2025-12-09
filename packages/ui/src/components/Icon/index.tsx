@@ -43,8 +43,8 @@ const iconMap = {
   filePenLine: FilePenLine,
   fileText: FileText,
   info: Info,
-  loaderCircle: LoaderCircle,
-  loader: Loader,
+  loadingCircle: LoaderCircle,
+  loading: Loader,
   save: Save,
   search: Search,
   smilePlus: SmilePlus,
@@ -91,7 +91,8 @@ export const Icon: React.FC<IconProps> = ({
     styles.base,
     styles[size],
     styles[variant],
-    className
+    className,
+    name === 'loading' && styles.spin,
   ].filter(Boolean).join(' ');
 
   return <IconComponent className={classes} {...rest} />;
