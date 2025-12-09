@@ -69,15 +69,17 @@ interface IconProps extends React.SVGProps<SVGSVGElement> {
   size?: IconSize;
   className?: string;
   // 拟物化相关属性
-  variant?: 'default' | 'primary' | 'inset'; 
+  variant?: 'default' | 'primary' | 'inset';
+  spin?: boolean;
 }
 
-export const Icon: React.FC<IconProps> = ({ 
-  name, 
-  size = 'medium', 
-  className, 
+export const Icon: React.FC<IconProps> = ({
+  name,
+  size = 'medium',
+  className,
   variant = 'default',
-  ...rest 
+  spin = false,
+  ...rest
 }) => {
   const IconComponent = iconMap[name];
 
@@ -85,14 +87,14 @@ export const Icon: React.FC<IconProps> = ({
     console.error(`Icon "${name}" not found.`);
     return null;
   }
-  
+
   // 动态构建类名以应用拟物化样式
   const classes = [
     styles.base,
     styles[size],
     styles[variant],
     className,
-    name === 'loading' && styles.spin,
+    spin && styles.spin,
   ].filter(Boolean).join(' ');
 
   return <IconComponent className={classes} {...rest} />;
