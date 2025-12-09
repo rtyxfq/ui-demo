@@ -167,6 +167,18 @@ import { ButtonIconDemo } from './ButtonIconDemo';
   />
 </div>
 
+## 加载中
+<div style="display: flex; gap: 20px; flex-wrap: wrap;">
+  <ReactWrapper
+    :component="ReactButton"
+    :props="{
+      children: '加载中',
+      type: 'primary',
+      loading: true
+    }"
+  />
+</div>
+
 ## API
 
 | 属性 | 描述 | 类型 | 默认值 | 版本 |
