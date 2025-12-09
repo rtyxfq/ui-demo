@@ -1,4 +1,5 @@
 import React, { useState, MouseEvent } from 'react';
+import { Icon } from '../Icon'
 import styles from './index.module.scss'; // 导入样式模块
 
 // 定义 Button 组件的 props 类型
@@ -9,6 +10,7 @@ interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   href?: string;
   target?: string;
   size?: 'default' | 'mini' | 'small' | 'medium' | 'large';
+  loading?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -20,6 +22,7 @@ const Button: React.FC<ButtonProps> = ({
   href,
   target,
   size = 'default',
+  loading = false,
   ...rest
 }) => {
   // 1. 追踪按钮是否被按下的状态
@@ -67,6 +70,7 @@ const Button: React.FC<ButtonProps> = ({
         aria-disabled={disabled}
         {...rest as React.AnchorHTMLAttributes<HTMLAnchorElement>} // 保证类型正确
       >
+        {loading && <Icon name="loading" style={{ marginRight: '4px' }} />}
         {children || 'Button'}
       </a>
     );
@@ -81,6 +85,7 @@ const Button: React.FC<ButtonProps> = ({
     disabled={disabled}
     {...rest}
   >
+    {loading && <Icon name="loading" style={{ marginRight: '4px' }} />}
     {children || 'Button'}
   </button>;
 };
