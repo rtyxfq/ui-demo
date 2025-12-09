@@ -191,7 +191,7 @@ import { ButtonIconDemo } from './ButtonIconDemo';
 
 ## API
 
-| 属性 | 描述 | 类型 | 默认值 | 版本 |
+| 属性 | 描述 | 类型 | 默认值/参考值 | 版本 |
 | :--- | :--- | :--- | :--- | :--- |
 | disabled | 按钮是否禁用 | `boolean` | `false` | 1.0.0 |
 | className | 自定义样式类名 | `string` | `-` | 1.1.0 |

@@ -168,7 +168,7 @@ import { Icon } from '@ui-demo/ui';
 </div>
 
 ## API
-| 属性 | 描述 | 类型 | 默认值 | 版本 |
+| 属性 | 描述 | 类型 | 默认值/参考值 | 版本 |
 | :--- | :--- | :--- | :--- | :--- |
 | name | 图标名称 | string | - | 1.0.0 |
 | size | 图标大小 | string | `'small'、'medium'、'large'` | 1.0.0 |
