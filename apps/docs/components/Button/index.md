@@ -188,3 +188,4 @@ import { ButtonIconDemo } from './ButtonIconDemo';
 | children | 按钮内容 | `ReactNode` | `'Button'` | 1.1.0 |
 | type | 按钮类型 | `string` | `'primary'、'default' 、'success'、'danger' 、 'warning' 、 'text'` | 1.1.0 |
 | size | 按钮大小 | `string` | `'mini'、'small'、'medium'、'large'` | 1.1.0 |
+| loading | 按钮是否加载icon | `boolean` | `false` | 1.0.0 |
