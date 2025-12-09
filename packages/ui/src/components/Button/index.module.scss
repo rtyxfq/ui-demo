@@ -31,6 +31,7 @@ $border-radius: theme.$global-spacing-unit;
 
 // 3. 使用 CSS Modules 的类名
 .button {
+  display: flex;
   background-color: $primary-color;
   color: theme.$global-primary-text;
   padding: theme.$global-spacing-unit * 1 theme.$global-spacing-unit * 2;
