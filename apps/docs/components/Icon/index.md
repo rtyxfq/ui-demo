@@ -130,6 +130,43 @@ import { Icon } from '@ui-demo/ui';
   </div>
 </div>
 
+## 旋转
+
+<div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px;">
+  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 16px; border: 1px solid #f0f0f0; border-radius: 4px;">
+    <ReactWrapper
+      :component="ReactIcon"
+      :props="{
+        name: 'loading',
+        spin: true
+      }"
+    />
+    <span style="font-size: 12px; margin-top: 8px; color: #555;">loading</span>
+  </div>
+
+  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 16px; border: 1px solid #f0f0f0; border-radius: 4px;">
+    <ReactWrapper
+      :component="ReactIcon"
+      :props="{
+        name: 'loadingCircle',
+        spin: true
+      }"
+    />
+    <span style="font-size: 12px; margin-top: 8px; color: #555;">loadingCircle</span>
+  </div>
+
+  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 16px; border: 1px solid #f0f0f0; border-radius: 4px;">
+    <ReactWrapper
+      :component="ReactIcon"
+      :props="{
+        name: 'users',
+        spin: true
+      }"
+    />
+    <span style="font-size: 12px; margin-top: 8px; color: #555;">users</span>
+  </div>
+</div>
+
 ## API
 | 属性 | 描述 | 类型 | 默认值 | 版本 |
 | :--- | :--- | :--- | :--- | :--- |
