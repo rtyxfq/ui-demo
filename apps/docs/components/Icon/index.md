@@ -175,3 +175,5 @@ import { Icon } from '@ui-demo/ui';
 | className | 图标类名 | string | - | 1.0.0 |
 | variant | 图标样式 | string | `'default'、 'primary'、 'inset'` | 1.0.0 |
 | spin | 是否旋转 | boolean | `false` | 1.0.0 |
+| style | 自定义Icon内联样式 | `CSSProperties` | `-` | 1.0.0 |
+| color | 图标颜色 | string | - | 1.0.0 |
