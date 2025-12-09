@@ -38,13 +38,14 @@ export default {
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Components', link: '/components/button' }
+      { text: 'Components', link: '/components/button' },
     ],
     sidebar: [
       {
         text: '基础组件',
         items: [
-          { text: 'Button 按钮', link: '/components/button' }
+          { text: 'Button 按钮', link: '/components/button' },
+          { text: 'Icon 图标', link: '/components/icon' },
         ]
       }
     ]
