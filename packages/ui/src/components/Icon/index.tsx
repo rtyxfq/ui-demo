@@ -71,6 +71,7 @@ interface IconProps extends React.SVGProps<SVGSVGElement> {
   // 拟物化相关属性
   variant?: 'default' | 'primary' | 'inset';
   spin?: boolean;
+  color?: string;
 }
 
 export const Icon: React.FC<IconProps> = ({
@@ -79,6 +80,7 @@ export const Icon: React.FC<IconProps> = ({
   className,
   variant = 'default',
   spin = false,
+  color,
   ...rest
 }) => {
   const IconComponent = iconMap[name];
@@ -97,5 +99,10 @@ export const Icon: React.FC<IconProps> = ({
     spin && styles.spin,
   ].filter(Boolean).join(' ');
 
-  return <IconComponent className={classes} {...rest} />;
+  const style = {
+    ...rest.style,
+    color: color,
+  };
+
+  return <IconComponent className={classes} style={style} {...rest} />;
 };
