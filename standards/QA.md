@@ -154,6 +154,10 @@
       4. 使用icon组件【demo】
          1. 确保icon导出packages/ui/src/index.ts：export * from './components/Icon/index.tsx';
          2. // packages/ui/src/components/Button/Demo.tsx (或者直接在文档 demo 中)
+      5. 拟物化风格实现思路
+         1. 由于Lucide图标是基于线条（无填充）实现的，不能直接给SVG元素添加拟物化阴影
+         2. 解决方案：通过 包裹容器 模拟 图标被嵌入、图标浮出的效果
+            1. 默认嵌入（Default/Inset） 和 交互浮出（Hover/Active）。
 6. 交互层
    1. 维护组件状态
    2. 事件处理
