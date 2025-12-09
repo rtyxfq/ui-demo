@@ -34,6 +34,102 @@ import { Icon } from '@ui-demo/ui';
   </div>
 </div>
 
+## 颜色
+
+<div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px;">
+  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 16px; border: 1px solid #f0f0f0; border-radius: 4px;">
+    <ReactWrapper
+      :component="ReactIcon"
+      :props="{
+        name: 'birdhouse',
+        color: '#e522ff'
+      }"
+    />
+    <span style="font-size: 12px; margin-top: 8px; color: #555;">birdhouse</span>
+  </div>
+
+  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 16px; border: 1px solid #f0f0f0; border-radius: 4px;">
+    <ReactWrapper
+      :component="ReactIcon"
+      :props="{
+        name: 'loading',
+        color: '#22ffedff',
+      }"
+    />
+    <span style="font-size: 12px; margin-top: 8px; color: #555;">loading</span>
+  </div>
+
+  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 16px; border: 1px solid #f0f0f0; border-radius: 4px;">
+    <ReactWrapper
+      :component="ReactIcon"
+      :props="{
+        name: 'squareCheck',
+        color: '#47ff22ff',
+      }"
+    />
+    <span style="font-size: 12px; margin-top: 8px; color: #555;">squareCheck</span>
+  </div>
+
+  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 16px; border: 1px solid #f0f0f0; border-radius: 4px;">
+    <ReactWrapper
+      :component="ReactIcon"
+      :props="{
+        name: 'filePenLine',
+        color: '#ff2229ff',
+      }"
+    />
+    <span style="font-size: 12px; margin-top: 8px; color: #555;">filePenLine</span>
+  </div>
+
+  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 16px; border: 1px solid #f0f0f0; border-radius: 4px;">
+    <ReactWrapper
+      :component="ReactIcon"
+      :props="{
+        name: 'download',
+        color: '#2247ffff',
+      }"
+    />
+    <span style="font-size: 12px; margin-top: 8px; color: #555;">download</span>
+  </div>
+</div>
+
+## 尺寸
+
+<div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px;">
+  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 16px; border: 1px solid #f0f0f0; border-radius: 4px;">
+    <ReactWrapper
+      :component="ReactIcon"
+      :props="{
+        name: 'download',
+        size: 'small'
+      }"
+    />
+    <span style="font-size: 12px; margin-top: 8px; color: #555;">download - small</span>
+  </div>
+
+  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 16px; border: 1px solid #f0f0f0; border-radius: 4px;">
+    <ReactWrapper
+      :component="ReactIcon"
+      :props="{
+        name: 'download',
+        size: 'medium'
+      }"
+    />
+    <span style="font-size: 12px; margin-top: 8px; color: #555;">download - medium</span>
+  </div>
+
+  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 16px; border: 1px solid #f0f0f0; border-radius: 4px;">
+    <ReactWrapper
+      :component="ReactIcon"
+      :props="{
+        name: 'download',
+        size: 'large'
+      }"
+    />
+    <span style="font-size: 12px; margin-top: 8px; color: #555;">download - large</span>
+  </div>
+</div>
+
 ## API
 | 属性 | 描述 | 类型 | 默认值 | 版本 |
 | :--- | :--- | :--- | :--- | :--- |
