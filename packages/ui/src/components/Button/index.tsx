@@ -11,6 +11,7 @@ interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   target?: string;
   size?: 'default' | 'mini' | 'small' | 'medium' | 'large';
   loading?: boolean;
+  spin?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -23,6 +24,7 @@ const Button: React.FC<ButtonProps> = ({
   target,
   size = 'default',
   loading = false,
+  spin = false,
   ...rest
 }) => {
   // 1. 追踪按钮是否被按下的状态
@@ -70,7 +72,7 @@ const Button: React.FC<ButtonProps> = ({
         aria-disabled={disabled}
         {...rest as React.AnchorHTMLAttributes<HTMLAnchorElement>} // 保证类型正确
       >
-        {loading && <Icon name="loading" style={{ marginRight: '4px' }} />}
+        {loading && <Icon name="loading" style={{ marginRight: '4px' }} spin={spin} />}
         {children || 'Button'}
       </a>
     );
@@ -85,7 +87,7 @@ const Button: React.FC<ButtonProps> = ({
     disabled={disabled}
     {...rest}
   >
-    {loading && <Icon name="loading" style={{ marginRight: '4px' }} />}
+    {loading && <Icon name="loading" style={{ marginRight: '4px' }} spin={spin} />}
     {children || 'Button'}
   </button>;
 };
