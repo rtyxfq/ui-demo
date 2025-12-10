@@ -212,5 +212,6 @@
     - 原因是，在vue文件内使用了jsx语法，而vue默认的编译器不能识别和处理.vue文件内的jsx语法
     - 解决方案：启用 VitePress 的 JSX 支持
       - 安装 JSX 插件，在 apps/docs 目录下安装 Vue 官方提供的 JSX 插件：pnpm install @vitejs/plugin-vue-jsx
-      - 修改 Vite 配置，在apps/docs/.vitepress/config.js文件的vite.plugins内添加：vueJsx()，当然别忘了引入：import vueJsx from '@vitejs/plugin-vue-jsx';
+      - 修改 Vite 配置，在apps/docs/.vitepress/config.js文件的vite.plugins内添加：vueJsx({include: /\.(jsx|tsx)$/,})，当然别忘了引入：import vueJsx from '@vitejs/plugin-vue-jsx';
       - apps/docs/package.json配置【"type": "module"】
+      - apps/docs/.vitepress/theme/components/WujieContainer.vue内<script setup lang="jsx">
