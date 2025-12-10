@@ -32,6 +32,7 @@
 │ └── playground/ - 组件库演示【专注于生成可部署的、面向终端用户的应用产物。永远只对 最终用户 负责‼️】
 ├── docs/ - 组件库文档
 ├── standards/ - 备忘录
+│ ├── Branch.md - 分支管理
 │ ├── GitCommitEmoji.md - Git提交Emoji
 │ ├── QA.md - 问题沉淀
 │ └── TerminalCommands.md - 终端命令
