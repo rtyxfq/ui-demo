@@ -1,4 +1,6 @@
 <!-- 虽然是QA，梳理下来基本为整体的构建思路了 -->
+
+<!-- Monorepo架构 -->
 1. 创建第一个应用环境
    - 技术栈选择：哪个工具（Vite/Next.js）作为开发环境启动速度最快？
    1.  Vite (构建工具 / Build Tool)：构建组件库的利器，轻量、快速、产物标准。【✅】
@@ -159,6 +161,56 @@
          2. 解决方案：通过 包裹容器 模拟 图标被嵌入、图标浮出的效果
             1. 默认嵌入（Default/Inset） 和 交互浮出（Hover/Active）。
 6. 交互层
-   1. 维护组件状态
-   2. 事件处理
-   3. 通信
+
+<!-- Micro Frontend架构：微前端改造方案 -->
+1. 什么是微前端
+   - 核心思想是将一个庞大、单体的前端应用，拆分成多个小型的、可以独立开发和部署的子应用，然后在运行时将它们聚合成一个整体，呈现给用户。
+2. 为什么选择微前端
+   - 简单来说，拆分为了开发者、融合是为了用户
+   - 工程视角为什么要拆：
+     - 拆分：便于维护和扩展
+     - 项目越来越大（巨石应用）
+       - 构建慢：改一行代码，打包要 10 分钟。
+       - 维护难：代码耦合严重，牵一发而动全身，新人不敢改代码。
+       - 协作乱：几十个前端在一个仓库里提交代码，冲突不断。
+       - 技术栈锁死：五年前的项目用的是 jQuery 或 AngularJS，新功能想用 Vue3/React，但在老项目里没法混用。
+       - 发布阻塞：A 模块的一个小 Bug 导致 B 模块的新功能也没法上线。
+     - 拆分就是为了解决这些问题：让不同的团队维护不同的子应用，独立开发、独立部署、技术栈无关。
+   - 用户视角为什么要合：
+     - 统一的入口：我不希望访问“订单”是一个域名，访问“个人中心”又是另一个域名。
+     - 统一的体验：导航栏、侧边栏、登录状态应该是全局保持的，而不是跳来跳去。
+     - 无感切换：点击菜单时，页面应该是局部刷新的（SPA 体验），而不是整个浏览器白屏刷新。
+3. 为什么选择【wujie】
+   1. 子应用改造几乎零侵入，无需改动构建工具
+   2. 主应用接入：组件式写法
+   3. 文档清晰，社区体量 较 大
+   4. 调试难度低：iframe内调试，环境纯净
+4. 安装依赖【Node: 18.14.2✅】
+   1. 根目录：pnpm install wujie wujie-react concurrently -w
+5. Monorepo 启动命令改造
+   1. 启动 微应用：playground 运行在固定端口 3001：【"start:micro:playground": "pnpm -F playground dev --port 3001"】
+   2. 启动 基座应用：docs (或 docs:dev) 运行在默认端口 (假设 4173)：【"start:main:docs": "pnpm -F docs docs:dev"】
+   3. 统一启动命令：并行启动基座和微应用【"start:wujie": "concurrently \"pnpm start:main:docs\" \"pnpm start:micro:playground\""】
+6. 微应用配置调整补充
+   - apps/playground/vite.config.ts
+     - base: '/',
+     - server: {cors: true,},
+     - build: {outDir: 'dist',}
+7. 基座应用改造
+   - 将 apps/docs 改造为 Wujie 的 基座应用，以便它可以加载 playground。
+     1. 若apps/docs/.vitepress/theme/index.js 不存在，需要创建它
+     2. 引入wujie
+        1. 因为apps/docs是使用vitePress构建的，所以先创建wujie容器vue组件apps/docs/.vitepress/theme/components/WujieContainer.vue
+        2. 在 index.js 中注册 Wujie 容器
+        3. 即可在任何 Markdown 文件中加载你的 playground 微应用了
+           1. 比如创建：apps/docs/components/micro-app.md
+8. 配置路由
+   1. apps/docs/.vitepress/config.js文件，在nav内配置：{ text: '微前端演示', link: '/micro-app' }
+9.  启动
+  - 根目录：pnpm start:wujie
+  - 启动后，访问vitepress，也即docs，一定会碰到[plugin:vue] [vue/compiler-sfc] This experimental syntax requires enabling one of the following parser plugin(s): "jsx", "flow", "typescript".
+    - 原因是，在vue文件内使用了jsx语法，而vue默认的编译器不能识别和处理.vue文件内的jsx语法
+    - 解决方案：启用 VitePress 的 JSX 支持
+      - 安装 JSX 插件，在 apps/docs 目录下安装 Vue 官方提供的 JSX 插件：pnpm install @vitejs/plugin-vue-jsx
+      - 修改 Vite 配置，在apps/docs/.vitepress/config.js文件的vite.plugins内添加：vueJsx()，当然别忘了引入：import vueJsx from '@vitejs/plugin-vue-jsx';
+      - apps/docs/package.json配置【"type": "module"】
