@@ -1,5 +1,6 @@
 // apps/docs/.vitepress/config.js
 import { resolve } from 'path'
+import vueJsx from '@vitejs/plugin-vue-jsx';
 
 export default {
   title: 'UI Component Library', // 组件库名称
@@ -32,13 +33,19 @@ export default {
       jsxFragment: 'React.Fragment',
     },
     // 如果你后面需要用到 @vitejs/plugin-react，可以在这里加：
-    // plugins: [react()],
+    plugins: [
+      // 尝试在 JSX 插件中加入额外的配置 (这通常是必要的)
+      vueJsx({
+          include: /\.(jsx|tsx)$/,
+      })
+    ],
   },
 
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Components', link: '/components/button' },
+      { text: '微前端演示', link: '/micro-app' } // 🚨 对应 micro-app.md 文件
     ],
     sidebar: [
       {
@@ -46,6 +53,7 @@ export default {
         items: [
           { text: 'Button 按钮', link: '/components/button' },
           { text: 'Icon 图标', link: '/components/icon' },
+          { text: 'Wujie', link: '/components/micro-app.md' },
         ]
       }
     ]
