@@ -31,13 +31,13 @@
 │ ├── docs/ - 组件库组件预览文档
 │ └── playground/ - 组件库演示【专注于生成可部署的、面向终端用户的应用产物。永远只对 最终用户 负责‼️】
 ├── docs/ - 组件库文档
-├── packages/ - 组件库
-│ ├── ui/ - 组件库代码【专注于生成可复用的、干净的库产物。永远只对 开发者 负责‼️】
-│ └── test/ - 组件库测试代码
-├── standards/ - 组件库规范
+├── standards/ - 备忘录
 │ ├── GitCommitEmoji.md - Git提交Emoji
 │ ├── QA.md - 问题沉淀
 │ └── TerminalCommands.md - 终端命令
+├── packages/ - 组件库
+│ ├── ui/ - 组件库代码【专注于生成可复用的、干净的库产物。永远只对 开发者 负责‼️】
+│ └── test/ - 组件库测试代码
 ├── package.json - 组件库配置
 ├── pnpm-lock.yaml - pnpm 锁文件
 ├── pnpm-workspace.yaml - pnpm 工作区配置
