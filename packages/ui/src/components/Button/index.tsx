@@ -72,7 +72,7 @@ const Button: React.FC<ButtonProps> = ({
         aria-disabled={disabled}
         {...rest as React.AnchorHTMLAttributes<HTMLAnchorElement>} // 保证类型正确
       >
-        {loading && <Icon name="loading" style={{ marginRight: '4px' }} spin={spin} />}
+        {loading && <Icon name="loading" style={{ marginRight: '4px', color: '#fff' }} spin={spin} />}
         {children || 'Button'}
       </a>
     );
@@ -87,7 +87,7 @@ const Button: React.FC<ButtonProps> = ({
     disabled={disabled}
     {...rest}
   >
-    {loading && <Icon name="loading" style={{ marginRight: '4px' }} spin={spin} />}
+    {loading && <Icon name="loading" style={{ marginRight: '4px', color: '#fff' }} spin={spin} />}
     {children || 'Button'}
   </button>;
 };
