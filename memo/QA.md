@@ -206,12 +206,31 @@
            1. 比如创建：apps/docs/components/micro-app.md
 8. 配置路由
    1. apps/docs/.vitepress/config.js文件，在nav内配置：{ text: '微前端演示', link: '/micro-app' }
-9.  启动
+9. 启动
   - 根目录：pnpm start:wujie
   - 启动后，访问vitepress，也即docs，一定会碰到[plugin:vue] [vue/compiler-sfc] This experimental syntax requires enabling one of the following parser plugin(s): "jsx", "flow", "typescript".
     - 原因是，在vue文件内使用了jsx语法，而vue默认的编译器不能识别和处理.vue文件内的jsx语法
-    - 解决方案：启用 VitePress 的 JSX 支持
+    - 解决方案：启用 VitePress 的 JSX 支持【别着急，一定别着急，后面有彩蛋梦幻联动🎉🎉🎉】
       - 安装 JSX 插件，在 apps/docs 目录下安装 Vue 官方提供的 JSX 插件：pnpm install @vitejs/plugin-vue-jsx
       - 修改 Vite 配置，在apps/docs/.vitepress/config.js文件的vite.plugins内添加：vueJsx({include: /\.(jsx|tsx)$/,})，当然别忘了引入：import vueJsx from '@vitejs/plugin-vue-jsx';
       - apps/docs/package.json配置【"type": "module"】
       - apps/docs/.vitepress/theme/components/WujieContainer.vue内<script setup lang="jsx">
+10. TODO: 验证“通信能力”
+    1.  
+11. TODO: 改造完，运行起来后，发现现有功能：预览组件库演示内的Button、Icon组件时，示例丢了，如下图
+    1.  ![alt text](image.png)
+    2.  ![alt text](image-1.png)
+    3.  解决办法：
+        1.  apps/docs/.vitepress/config.js文件内，plugins下vueJsx配置项内添加：exclude: [/packages\/ui/]
+        2.  根目录下安装：pnpm install @vitejs/plugin-react -w
+        3.  具体配置详见apps/docs/.vitepress/config.js文件
+    4.  JSX解析失败解决后，又发现别名错误、别名未生效，VitePress 在 dev 阶段找不到 @ui-demo/ui 对应的真实文件。![alt text](image-2.png)
+        1.  核心问题：.vitepress/config.js配置了别名，但是路径不对
+        2.  vueJsx启用时错误的接管/干扰 packages/ui 里的 React TSX 文件解析。
+        3.  暂时将vueJsx禁用【该死的语法糖】
+            1.  禁用的概念：只服务于 apps/docs 下的 .vue 文件
+            2.  禁止 vueJsx 插件对 packages/ui 下的 .vue 文件进行解析
+            3.  具体配置详见apps/docs/.vitepress/config.js文件
+            4.  说这么多，来个终结大法，直接不在vue文件内使用jsx语法‼️‼️‼️梦幻联动end🏮，修改apps/docs/.vitepress/theme/components/WujieContainer.vue
+                1.  然后请无情的卸载掉【@vitejs/plugin-vue-jsx】
+                2.  现在去运行pnpm start:wujie，一跑一个不吱声
