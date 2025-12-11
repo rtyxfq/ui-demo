@@ -215,9 +215,7 @@
       - 修改 Vite 配置，在apps/docs/.vitepress/config.js文件的vite.plugins内添加：vueJsx({include: /\.(jsx|tsx)$/,})，当然别忘了引入：import vueJsx from '@vitejs/plugin-vue-jsx';
       - apps/docs/package.json配置【"type": "module"】
       - apps/docs/.vitepress/theme/components/WujieContainer.vue内<script setup lang="jsx">
-10. TODO: 验证“通信能力”
-    1.  
-11. TODO: 改造完，运行起来后，发现现有功能：预览组件库演示内的Button、Icon组件时，示例丢了，如下图
+10. 改造完，运行起来后，发现现有功能：预览组件库演示内的Button、Icon组件时，示例丢了，如下图
     1.  ![alt text](image.png)
     2.  ![alt text](image-1.png)
     3.  解决办法：
@@ -234,3 +232,10 @@
             4.  说这么多，来个终结大法，直接不在vue文件内使用jsx语法‼️‼️‼️梦幻联动end🏮，修改apps/docs/.vitepress/theme/components/WujieContainer.vue
                 1.  然后请无情的卸载掉【@vitejs/plugin-vue-jsx】
                 2.  现在去运行pnpm start:wujie，一跑一个不吱声
+11. TODO: 验证“通信能力”
+    1.  使用 Wujie 提供的 props 或 bus (事件总线) 来实现双向通信。👍
+    2.  主题同步：基座向微应用传递数据 为例，实现一个最简单的 主题同步 功能。基座 (Vue) 告诉微应用 (React)：“当前是暗黑模式”，微应用接收后切换自身的样式。
+        1.  基座 (Vue/VitePress) 侧：传递 Props，修改 WujieContainer.vue 文件，利用 <Wujie> 组件的 props 属性来传递数据。
+        2.  配置完记得重启工程哟‼️‼️‼️
+        3.  第一步内完成了单向传递，现在apps/playground/src/main.tsx内调用公共方法，验证双向通信，同时需要修改：apps/playground/src/App.tsx
+        4.  配置完记得重启工程哟‼️‼️‼️
