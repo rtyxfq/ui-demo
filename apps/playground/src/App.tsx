@@ -1,15 +1,29 @@
-import { Button } from '@ui-demo/ui';
-import '@ui-demo/ui/dist/ui.css';
+// apps/playground/src/App.tsx
 
-function App() {
+import React from 'react';
 
-  return (
-    <>
-      <Button onClick={() => alert('Component from UI library clicked!')}>
-        Monorepo Button
-      </Button>
-    </>
-  )
+// 定义 props 接口
+interface AppProps {
+  theme: string;
 }
 
-export default App
+// 确保 App 组件接收 theme 属性
+function App({ theme }: AppProps) {
+  const style = {
+    padding: '20px',
+    border: `2px solid ${theme === 'dark' ? 'white' : 'black'}`,
+    backgroundColor: theme === 'dark' ? '#333' : '#FFF',
+    color: theme === 'dark' ? '#FFF' : '#333',
+    transition: 'all 0.3s ease',
+  };
+
+  return (
+    <div style={style}>
+      <h2>Playground React 微应用</h2>
+      <p>主题状态来自基座: **{theme.toUpperCase()}**</p>
+      {/* ... 你的其他内容 ... */}
+    </div>
+  );
+}
+
+export default App;
