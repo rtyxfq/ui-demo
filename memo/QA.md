@@ -234,8 +234,11 @@
                 2.  现在去运行pnpm start:wujie，一跑一个不吱声
 11. TODO: 验证“通信能力”
     1.  使用 Wujie 提供的 props 或 bus (事件总线) 来实现双向通信。👍
+        1.  基座 -> 微应用（主题变化）： 通过 Vue 的响应式 computed 属性绑定到 props，Wujie 自动发送 props-change 事件。
+        2.  微应用 -> 基座（事件/函数）： 通过将函数作为 props 传递，微应用直接调用该函数。
+        3.  你以为 $wujie ≈ window.wujie，但它们完全不同。‼️‼️‼️
     2.  主题同步：基座向微应用传递数据 为例，实现一个最简单的 主题同步 功能。基座 (Vue) 告诉微应用 (React)：“当前是暗黑模式”，微应用接收后切换自身的样式。
         1.  基座 (Vue/VitePress) 侧：传递 Props，修改 WujieContainer.vue 文件，利用 <Wujie> 组件的 props 属性来传递数据。
         2.  配置完记得重启工程哟‼️‼️‼️
-        3.  第一步内完成了单向传递，现在apps/playground/src/main.tsx内调用公共方法，验证双向通信，同时需要修改：apps/playground/src/App.tsx
+        3.  TODO: 第一步内完成了单向传递，现在apps/playground/src/main.tsx内调用公共方法，验证双向通信，同时需要修改：apps/playground/src/App.tsx
         4.  配置完记得重启工程哟‼️‼️‼️
