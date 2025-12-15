@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import {
-  defineProps,
-  computed,
-  ref
-} from 'vue'
+import { defineProps, computed, ref } from 'vue'
 import React from 'react'
 import WujieReact from 'wujie-react'
 import ReactWrapper from './ReactWrapper.vue'
@@ -15,37 +11,50 @@ const props = defineProps<{
   height?: string
 }>()
 
-// 1. 【通信关键】定义响应式状态
+// 1. 定义响应式状态
 const currentTheme = ref('light')
+// 新增：用于存储微应用实例
+const microInstance = ref<any>(null)
 
-// 2. 模拟主题切换的方法
+// 2. 主题切换方法
 const toggleTheme = () => {
   currentTheme.value = currentTheme.value === 'light' ? 'dark' : 'light'
   console.log(`基座切换主题为: ${currentTheme.value}`)
+  // 【关键】使用 bus 主动通知子应用 props 变化
+  microInstance.value?.bus?.$emit('props-change', { theme: currentTheme.value })
 }
 
-// 3. 【通信关键】定义要传递给微应用的响应式 props 对象
+// 3. 定义要传递给微应用的 props 对象
 const wujieProps = computed(() => ({
   theme: currentTheme.value,
-  // 还可以传递一个方法，供微应用调用基座的方法
-  onMicroAppReady: () => console.log('微应用已准备好并向基座报告!'),
+  // 【关键】定义一个回调函数，用于接收子应用的消息
+  onMessageFromMicro: (msg: any) => {
+    console.log(`🎉 基座收到子应用消息 (通过 Props):`, msg)
+    alert(`🎉 基座收到子应用消息 (通过 Props): ${JSON.stringify(msg)}`)
+  },
 }));
 
-// 封一个高阶组件，把 props 预注入
+// 4. 封装 Wujie-React 组件
 function WujieComponent(injectedProps: any) {
-  // 最终渲染的只是一个 React 组件
   return React.createElement(WujieReact, {
     name: props.name,
     url: props.url,
     sync: true,
     alive: true,
-    // 【通信关键】将计算属性的值（.value）合并到组件的 props 中
-    props: {
-      from: 'docs-vitepress',
-      ...wujieProps.value, // 使用 .value 获取最新值
-    },
+    props: { ...wujieProps.value },
     width: props.width ?? '100%',
     height: props.height ?? '800px',
+    // 【关键】微应用加载后，获取实例并设置监听
+    onLoad: () => {
+      microInstance.value = (window as any).$wujie?.getInstance?.(props.name)
+      // 立即同步一次当前主题，防止加载时状态不一致
+      microInstance.value?.bus?.$emit('props-change', { theme: currentTheme.value })
+      // 【关键】监听子应用通过 bus 发送的事件
+      microInstance.value?.bus?.$on('micro-to-base', (msg: any) => {
+        console.log(`🎉 基座收到子应用消息 (通过 Bus):`, msg)
+        alert(`🎉 基座收到子应用消息 (通过 Bus): ${JSON.stringify(msg)}`)
+      })
+    },
     ...injectedProps,
   })
 }
@@ -53,7 +62,7 @@ function WujieComponent(injectedProps: any) {
 
 <template>
   <div>
-    <button @click="toggleTheme" style="padding: 10px 20px; margin-bottom: 20px; cursor: pointer; border: 1px solid #ccc; background-color: #f0f0f0;">
+    <button @click="toggleTheme" style="padding: 10px 20px; margin-bottom: 20px; cursor: pointer;">
         切换基座主题 (当前: {{ currentTheme }})
     </button>
 
