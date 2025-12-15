@@ -32,7 +32,11 @@
 3. 微应用配置调整
 4. 基座应用改造
 5. 配置路由
-6. 启动
+6. 整体结构
+   1. 基座 (Host): apps/docs
+   2. 微应用 (Micro-app): apps/playground
+   3. 共享组件库 (Shared Library): `packages/ui
+7. 启动
   - 根目录：pnpm start:wujie
 
 ```text

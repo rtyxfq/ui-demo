@@ -185,18 +185,22 @@
    2. 主应用接入：组件式写法
    3. 文档清晰，社区体量 较 大
    4. 调试难度低：iframe内调试，环境纯净
-4. 安装依赖【Node: 18.14.2✅】
+4. 应用结构
+   1. 基座 (Host): apps/docs
+   2. 微应用 (Micro-app): apps/playground
+   3. 共享组件库 (Shared Library): `packages/ui
+5. 安装依赖【Node: 18.14.2✅】
    1. 根目录：pnpm install wujie wujie-react concurrently -w
-5. Monorepo 启动命令改造
+6. Monorepo 启动命令改造
    1. 启动 微应用：playground 运行在固定端口 3001：【"start:micro:playground": "pnpm -F playground dev --port 3001"】
    2. 启动 基座应用：docs (或 docs:dev) 运行在默认端口 (假设 4173)：【"start:main:docs": "pnpm -F docs docs:dev"】
    3. 统一启动命令：并行启动基座和微应用【"start:wujie": "concurrently \"pnpm start:main:docs\" \"pnpm start:micro:playground\""】
-6. 微应用配置调整补充
+7. 微应用配置调整补充
    - apps/playground/vite.config.ts
      - base: '/',
      - server: {cors: true,},
      - build: {outDir: 'dist',}
-7. 基座应用改造
+8. 基座应用改造
    - 将 apps/docs 改造为 Wujie 的 基座应用，以便它可以加载 playground。
      1. 若apps/docs/.vitepress/theme/index.js 不存在，需要创建它
      2. 引入wujie
@@ -204,9 +208,9 @@
         2. 在 index.js 中注册 Wujie 容器
         3. 即可在任何 Markdown 文件中加载你的 playground 微应用了
            1. 比如创建：apps/docs/components/micro-app.md
-8. 配置路由
+9.  配置路由
    1. apps/docs/.vitepress/config.js文件，在nav内配置：{ text: '微前端演示', link: '/micro-app' }
-9. 启动
+10. 启动
   - 根目录：pnpm start:wujie
   - 启动后，访问vitepress，也即docs，一定会碰到[plugin:vue] [vue/compiler-sfc] This experimental syntax requires enabling one of the following parser plugin(s): "jsx", "flow", "typescript".
     - 原因是，在vue文件内使用了jsx语法，而vue默认的编译器不能识别和处理.vue文件内的jsx语法
@@ -215,7 +219,7 @@
       - 修改 Vite 配置，在apps/docs/.vitepress/config.js文件的vite.plugins内添加：vueJsx({include: /\.(jsx|tsx)$/,})，当然别忘了引入：import vueJsx from '@vitejs/plugin-vue-jsx';
       - apps/docs/package.json配置【"type": "module"】
       - apps/docs/.vitepress/theme/components/WujieContainer.vue内<script setup lang="jsx">
-10. 改造完，运行起来后，发现现有功能：预览组件库演示内的Button、Icon组件时，示例丢了，如下图
+11. 改造完，运行起来后，发现现有功能：预览组件库演示内的Button、Icon组件时，示例丢了，如下图
     1.  ![alt text](image.png)
     2.  ![alt text](image-1.png)
     3.  解决办法：
@@ -232,7 +236,7 @@
             4.  说这么多，来个终结大法，直接不在vue文件内使用jsx语法‼️‼️‼️梦幻联动end🏮，修改apps/docs/.vitepress/theme/components/WujieContainer.vue
                 1.  然后请无情的卸载掉【@vitejs/plugin-vue-jsx】
                 2.  现在去运行pnpm start:wujie，一跑一个不吱声
-11. TODO: 验证“通信能力”
+12. TODO: 验证“通信能力”
     1.  使用 Wujie 提供的 props 或 bus (事件总线) 来实现双向通信。👍
         1.  基座 -> 微应用（主题变化）： 通过 Vue 的响应式 computed 属性绑定到 props，Wujie 自动发送 props-change 事件。
         2.  微应用 -> 基座（事件/函数）： 通过将函数作为 props 传递，微应用直接调用该函数。
