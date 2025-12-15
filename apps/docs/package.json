@@ -15,7 +15,8 @@
   "dependencies": {
     "@ui-demo/ui": "workspace:^1.0.0",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "wujie-react": "^1.0.29"
   },
   "devDependencies": {
     "vitepress": "^1.6.4",
