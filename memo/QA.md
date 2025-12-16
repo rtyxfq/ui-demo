@@ -236,13 +236,73 @@
             4.  说这么多，来个终结大法，直接不在vue文件内使用jsx语法‼️‼️‼️梦幻联动end🏮，修改apps/docs/.vitepress/theme/components/WujieContainer.vue
                 1.  然后请无情的卸载掉【@vitejs/plugin-vue-jsx】
                 2.  现在去运行pnpm start:wujie，一跑一个不吱声
-12. TODO: 验证“通信能力”
+12. ✅ 验证"通信能力" - 已完成
     1.  使用 Wujie 提供的 props 或 bus (事件总线) 来实现双向通信。👍
         1.  基座 -> 微应用（主题变化）： 通过 Vue 的响应式 computed 属性绑定到 props，Wujie 自动发送 props-change 事件。
         2.  微应用 -> 基座（事件/函数）： 通过将函数作为 props 传递，微应用直接调用该函数。
         3.  你以为 $wujie ≈ window.wujie，但它们完全不同。‼️‼️‼️
-    2.  主题同步：基座向微应用传递数据 为例，实现一个最简单的 主题同步 功能。基座 (Vue) 告诉微应用 (React)：“当前是暗黑模式”，微应用接收后切换自身的样式。
+    2.  主题同步：基座向微应用传递数据 为例，实现一个最简单的 主题同步 功能。基座 (Vue) 告诉微应用 (React)："当前是暗黑模式"，微应用接收后切换自身的样式。
         1.  基座 (Vue/VitePress) 侧：传递 Props，修改 WujieContainer.vue 文件，利用 <Wujie> 组件的 props 属性来传递数据。
         2.  配置完记得重启工程哟‼️‼️‼️
-        3.  TODO: 第一步内完成了单向传递，现在apps/playground/src/main.tsx内调用公共方法，验证双向通信，同时需要修改：apps/playground/src/App.tsx
+        3.  第一步内完成了单向传递，现在apps/playground/src/main.tsx内调用公共方法，验证双向通信，同时需要修改：apps/playground/src/App.tsx
         4.  配置完记得重启工程哟‼️‼️‼️
+        5.  apps/docs/.vitepress/theme/index.js内注册全局方法挂载到window上
+        6.  apps/playground/vite.config.ts内配置端口、以及开启跨域
+
+<!-- 【问题分析】Wujie 微前端通信问题根因分析 -->
+13. 【问题分析】Wujie 微前端通信问题根因分析 ⚠️⚠️⚠️
+    1. 问题现象
+       1. 子应用无法接收基座传递的 props
+       2. 基座无法与子应用通信
+       3. "微应用加载中..." 一直显示，无法进入已加载状态
+       4. 控制台错误：`[wujie warn]: load 事件已经发送过! undefined`
+    
+    2. 根本原因分析 🔍
+       1. **错误认知 #1：`window.wujie` vs `window.$wujie`**
+          - ❌ 错误做法：在子应用中使用 `window.wujie` 访问 Wujie 对象
+          - ✅ 正确做法：在子应用中使用 `window.$wujie` 访问 Wujie 对象
+          - 原因：Wujie 在 iframe.js 中明确定义了 `iframeWindow.$wujie = wujie.provide;`
+          - 这是 Wujie 的设计，`$wujie` 是子应用 iframe 中的全局对象，而 `wujie` 不存在
+       
+       2. **错误认知 #2：基座中获取微应用实例的方式**
+          - ❌ 错误做法：在基座中尝试通过 `window.$wujie?.getInstance?.(name)` 获取微应用实例
+          - ✅ 正确做法：基座应该使用 Wujie 提供的全局 `bus` 对象进行通信
+          - 原因：`window.$wujie` 是子应用 iframe 中的对象，基座无法直接访问
+          - 基座应该导入 `import { bus as wujiBus } from 'wujie'` 来进行通信
+       
+       3. **错误认知 #3：重复发送 'load' 事件**
+          - ❌ 错误做法：子应用在 `__WUJIE_MOUNT` 中手动发送 'load' 事件
+          - ✅ 正确做法：让 Wujie 自动处理 'load' 事件
+          - 原因：Wujie 框架会在子应用挂载完成后自动发送 'load' 事件
+          - 手动发送会导致重复发送，触发警告
+       
+       4. **错误认知 #4：基座与子应用的通信方式**
+          - ❌ 错误做法：基座尝试获取微应用实例后调用其 bus 方法
+          - ✅ 正确做法：基座直接使用全局 `bus` 对象，子应用通过 `window.$wujie.bus` 监听
+          - 原因：Wujie 的 bus 是全局的事件总线，基座和子应用共享同一个 bus
+    
+    3. 解决方案总结 ✅
+       1. **子应用端 (apps/playground/src/main.tsx)**
+          - 使用 `window.$wujie?.props` 访问基座传递的 props
+          - 使用 `window.$wujie?.bus?.$on()` 监听基座发送的事件
+          - 使用 `window.$wujie?.bus?.$emit()` 向基座发送事件
+          - 不要手动发送 'load' 事件，让 Wujie 自动处理
+       
+       2. **基座端 (apps/docs/.vitepress/theme/components/WujieContainer.vue)**
+          - 导入 Wujie 的 bus：`import { bus as wujiBus } from 'wujie'`
+          - 使用 `wujiBus.$emit('props-change', data)` 向子应用发送事件
+          - 使用 `wujiBus.$on('micro-to-base', handler)` 监听子应用发送的事件
+          - 不要尝试获取微应用实例，直接使用 bus 通信
+       
+       3. **通信流程**
+          - 基座 → 子应用：`wujiBus.$emit('props-change', { theme: 'dark' })`
+          - 子应用监听：`window.$wujie?.bus?.$on?.('props-change', handler)`
+          - 子应用 → 基座：`window.$wujie?.bus?.$emit?.('micro-to-base', msg)`
+          - 基座监听：`wujiBus.$on('micro-to-base', handler)`
+    
+    4. 关键要点记录 📝
+       - Wujie 的 bus 是全局的事件总线，基座和子应用共享
+       - `$wujie` 是子应用 iframe 中的对象，包含 props 和 bus
+       - 基座无法直接访问子应用的 `window.$wujie`，只能通过 bus 通信
+       - Props 通过 WujieReact 组件的 props 属性传递，自动设置到 `window.$wujie.props`
+       - 'load' 事件由 Wujie 框架自动发送，不需要手动发送
