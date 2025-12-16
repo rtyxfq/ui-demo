@@ -1,14 +1,17 @@
 // apps/playground/src/App.tsx
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-// 为 window.wujie 提供类型定义，以获得更好的代码提示
+// 为 window.$wujie 提供类型定义
 declare global {
   interface Window {
-    wujie?: {
-      props?: Record<string, any>;
+    $wujie?: {
+      id?: string;
+      props?: Record<string, unknown>;
       bus?: {
-        $emit: (event: string, ...args: any[]) => void;
+        $on?: (event: string, cb: (data: unknown) => void) => void;
+        $off?: (event: string, cb: (data: unknown) => void) => void;
+        $emit?: (event: string, data?: unknown) => void;
       };
     };
   }
@@ -16,11 +19,33 @@ declare global {
 
 // 定义 props 接口
 interface AppProps {
-  theme: string;
+  theme?: string;
+  name?: string;
+  onMessageFromMicro?: (msg: unknown) => void;
 }
 
 // 确保 App 组件接收 theme 属性
-function App({ theme }: AppProps) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function App({ theme: initialTheme = 'light', name, onMessageFromMicro }: AppProps) {
+  const [theme, setTheme] = useState(initialTheme);
+  
+  useEffect(() => {
+    setTheme(initialTheme);
+  }, [initialTheme]);
+
+  useEffect(() => {
+    // 监听基座通过 bus 发送的主题变化
+    const handler = (data: unknown) => {
+      if (typeof data === 'object' && data !== null && 'theme' in data) {
+        setTheme((data as Record<string, unknown>).theme as string);
+      }
+    };
+    window.$wujie?.bus?.$on?.('props-change', handler);
+    return () => {
+      window.$wujie?.bus?.$off?.('props-change', handler);
+    };
+  }, []);
+
   const style = {
     padding: '20px',
     border: `2px solid ${theme === 'dark' ? 'white' : 'black'}`,
@@ -39,7 +64,10 @@ function App({ theme }: AppProps) {
     const msg = { text: '你好基座，我是子应用，通过 props 回调发送消息！', timestamp: Date.now() };
     console.log('子应用: 正在通过 props 回调发送消息...', msg);
     // 安全地调用基座传递过来的函数
-    window.wujie?.props?.onMessageFromMicro?.(msg);
+    const callback = window.$wujie?.props?.onMessageFromMicro;
+    if (typeof callback === 'function') {
+      callback(msg);
+    }
   };
 
   /**
@@ -49,7 +77,7 @@ function App({ theme }: AppProps) {
     const msg = { text: '你好基座，我是子应用，通过 bus 事件发送消息！', timestamp: Date.now() };
     console.log('子应用: 正在通过 bus 发送消息...', msg);
     // 在事件总线上触发一个自定义事件，基座可以监听这个事件
-    window.wujie?.bus?.$emit('micro-to-base', msg);
+    window.$wujie?.bus?.$emit?.('micro-to-base', msg);
   };
 
   return (
