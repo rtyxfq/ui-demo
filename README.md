@@ -1,4 +1,3 @@
-
 - Node 版本：【22.20.0运行】 & 【18.14.2安装依赖包‼️】
   - 它包含了最新的 V8 引擎，对现代 JavaScript 语法（如 ES Modules、Promise API 等）有最好的支持，并且享受官方的长期维护和安全补丁。
 - Monorepo（单体仓库）
@@ -15,7 +14,7 @@
 5. 搞定“原子” (基础组件)
 6. 搞定“交互” (复杂组件)
 
-- 项目启动相关命令【22.20.0运行】 & 【18.14.2安装依赖包‼️】
+- 【微前端改造前】项目启动相关命令【22.20.0运行】 & 【18.14.2安装依赖包‼️】
   - 初始化：
     - 根目录：pnpm install
     - 组件库：cd packages/ui && pnpm install
@@ -25,6 +24,20 @@
   - 启动访问：
     - 演示：cd apps/playground && pnpm dev
     - 文档预览：cd apps/docs && pnpm docs:dev
+
+
+<!-- 微前端配置 -->
+1. 安装依赖
+2. Monorepo 启动命令改造
+3. 微应用配置调整
+4. 基座应用改造
+5. 配置路由
+6. 整体结构
+   1. 基座 (Host): apps/docs
+   2. 微应用 (Micro-app): apps/playground
+   3. 共享组件库 (Shared Library): `packages/ui
+7. 启动
+  - 根目录：pnpm start:wujie
 
 ```text
 ├── apps/ - 可运行/可部署的消费者 (Consumer Applications)。目录容纳了所有需要被编译、部署或作为独立环境运行的 应用程序。它们是组件库的消费者，而不是生产者。

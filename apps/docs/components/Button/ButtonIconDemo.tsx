@@ -8,13 +8,13 @@ export const ButtonIconDemo = () => {
     <div style={{ display: 'flex', gap: '20px' }}>
       {/* 演示 1: 带图标和文字 */}
       <Button type="primary" onClick={() => alert('Download')} style={{ display: 'flex', flexWrap: 'nowrap' }}>
-        <Icon name="download" size="medium" style={{ marginRight: '8px' }} />
+        <Icon name="download" size="medium" style={{ marginRight: '8px', color: '#fff' }} />
         下载
       </Button>
 
       {/* 演示 2: 纯图标按钮 */}
       <Button type="default">
-        <Icon name="birdhouse" size="medium" />
+        <Icon name="birdhouse" size="medium" style={{ color: '#fff'}} />
       </Button>
     </div>
   );

@@ -1,28 +1,26 @@
-// apps/docs/.vitepress/config.js
+import { defineConfig } from 'vitepress'
 import { resolve } from 'path'
+import react from '@vitejs/plugin-react'
+// import vueJsx from '@vitejs/plugin-vue-jsx'
 
-export default {
-  title: 'UI Component Library', // 组件库名称
+const uiEntry = resolve(__dirname, '../../../packages/ui/src/index.ts')
+console.log('[vitepress alias] @ui-demo/ui ->', uiEntry)
+
+export default defineConfig({
+  title: 'UI Component Library',
   description: 'Powered by VitePress and React',
 
-  // ⭐ 这里加上 vite 配置
   vite: {
     resolve: {
       alias: {
-        // 把 @ui-demo/ui 指到你真实的 React 源码上
-
-        // 绝对路径有效✅
-        // '@ui-demo/ui': '/Users/ymc/Study/React/ui-demo/packages/ui/src/Button.tsx',
-        '@ui-demo/ui': '/Users/ymc/Study/React/ui-demo/packages/ui/src/index.ts',
+        '@ui-demo/ui': resolve(uiEntry),
       },
       extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
     },
     server: {
       fs: {
         allow: [
-          // 允许访问 monorepo 根目录
           resolve(__dirname, '../..'),
-          // 更精确：允许访问组件库所在目录
           resolve(__dirname, '../../packages/ui'),
         ],
       },
@@ -31,14 +29,29 @@ export default {
       jsxFactory: 'React.createElement',
       jsxFragment: 'React.Fragment',
     },
-    // 如果你后面需要用到 @vitejs/plugin-react，可以在这里加：
-    // plugins: [react()],
+    plugins: [
+      react({
+        exclude: [/node_modules/],
+      }),
+      // vueJsx({
+      //   // include: /\.(jsx|tsx)$/,
+      //   // exclude: [/packages\/ui/],
+
+      //   include: [/\.jsx$/, /\.tsx$/],
+      //   exclude: [
+      //     /node_modules/,
+      //     /packages\/ui/,
+      //     /..\/..\/packages\/ui/,
+      //   ],
+      // }),
+    ],
   },
 
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Components', link: '/components/button' },
+      { text: '微前端演示', link: '/micro-app' } // 🚨 对应 micro-app.md 文件
     ],
     sidebar: [
       {
@@ -46,8 +59,9 @@ export default {
         items: [
           { text: 'Button 按钮', link: '/components/button' },
           { text: 'Icon 图标', link: '/components/icon' },
+          { text: 'Wujie', link: '/components/micro-app.md' },
         ]
       }
     ]
-  }
-}
+  },
+})
