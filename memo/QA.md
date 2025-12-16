@@ -1,4 +1,6 @@
 <!-- 虽然是QA，梳理下来基本为整体的构建思路了 -->
+
+<!-- Monorepo架构 -->
 1. 创建第一个应用环境
    - 技术栈选择：哪个工具（Vite/Next.js）作为开发环境启动速度最快？
    1.  Vite (构建工具 / Build Tool)：构建组件库的利器，轻量、快速、产物标准。【✅】
@@ -159,6 +161,140 @@
          2. 解决方案：通过 包裹容器 模拟 图标被嵌入、图标浮出的效果
             1. 默认嵌入（Default/Inset） 和 交互浮出（Hover/Active）。
 6. 交互层
-   1. 维护组件状态
-   2. 事件处理
-   3. 通信
+
+<!-- Micro Frontend架构：微前端改造方案 -->
+1. 什么是微前端
+   - 核心思想是将一个庞大、单体的前端应用，拆分成多个小型的、可以独立开发和部署的子应用，然后在运行时将它们聚合成一个整体，呈现给用户。
+2. 为什么选择微前端
+   - 简单来说，拆分为了开发者、融合是为了用户
+   - 工程视角为什么要拆：
+     - 拆分：便于维护和扩展
+     - 项目越来越大（巨石应用）
+       - 构建慢：改一行代码，打包要 10 分钟。
+       - 维护难：代码耦合严重，牵一发而动全身，新人不敢改代码。
+       - 协作乱：几十个前端在一个仓库里提交代码，冲突不断。
+       - 技术栈锁死：五年前的项目用的是 jQuery 或 AngularJS，新功能想用 Vue3/React，但在老项目里没法混用。
+       - 发布阻塞：A 模块的一个小 Bug 导致 B 模块的新功能也没法上线。
+     - 拆分就是为了解决这些问题：让不同的团队维护不同的子应用，独立开发、独立部署、技术栈无关。
+   - 用户视角为什么要合：
+     - 统一的入口：我不希望访问“订单”是一个域名，访问“个人中心”又是另一个域名。
+     - 统一的体验：导航栏、侧边栏、登录状态应该是全局保持的，而不是跳来跳去。
+     - 无感切换：点击菜单时，页面应该是局部刷新的（SPA 体验），而不是整个浏览器白屏刷新。
+3. 为什么选择【wujie】
+   1. 子应用改造几乎零侵入，无需改动构建工具
+   2. 主应用接入：组件式写法
+   3. 文档清晰，社区体量 较 大
+   4. 调试难度低：iframe内调试，环境纯净
+4. 应用结构
+   1. 基座 (Host): apps/docs
+   2. 微应用 (Micro-app): apps/playground
+   3. 共享组件库 (Shared Library): `packages/ui
+5. 安装依赖【Node: 18.14.2✅】
+   1. 根目录：pnpm install wujie wujie-react concurrently -w
+6. Monorepo 启动命令改造
+   1. 启动 微应用：playground 运行在固定端口 3001：【"start:micro:playground": "pnpm -F playground dev --port 3001"】
+   2. 启动 基座应用：docs (或 docs:dev) 运行在默认端口 (假设 4173)：【"start:main:docs": "pnpm -F docs docs:dev"】
+   3. 统一启动命令：并行启动基座和微应用【"start:wujie": "concurrently \"pnpm start:main:docs\" \"pnpm start:micro:playground\""】
+7. 微应用配置调整补充
+   - apps/playground/vite.config.ts
+     - base: '/',
+     - server: {cors: true,},
+     - build: {outDir: 'dist',}
+8. 基座应用改造
+   - 将 apps/docs 改造为 Wujie 的 基座应用，以便它可以加载 playground。
+     1. 若apps/docs/.vitepress/theme/index.js 不存在，需要创建它
+     2. 引入wujie
+        1. 因为apps/docs是使用vitePress构建的，所以先创建wujie容器vue组件apps/docs/.vitepress/theme/components/WujieContainer.vue
+        2. 在 index.js 中注册 Wujie 容器
+        3. 即可在任何 Markdown 文件中加载你的 playground 微应用了
+           1. 比如创建：apps/docs/components/micro-app.md
+9.  配置路由
+   1. apps/docs/.vitepress/config.js文件，在nav内配置：{ text: '微前端演示', link: '/micro-app' }
+10. 启动
+  - 根目录：pnpm start:wujie
+  - 启动后，访问vitepress，也即docs，一定会碰到[plugin:vue] [vue/compiler-sfc] This experimental syntax requires enabling one of the following parser plugin(s): "jsx", "flow", "typescript".
+    - 原因是，在vue文件内使用了jsx语法，而vue默认的编译器不能识别和处理.vue文件内的jsx语法
+    - 解决方案：启用 VitePress 的 JSX 支持【别着急，一定别着急，后面有彩蛋梦幻联动🎉🎉🎉】
+      - 安装 JSX 插件，在 apps/docs 目录下安装 Vue 官方提供的 JSX 插件：pnpm install @vitejs/plugin-vue-jsx
+      - 修改 Vite 配置，在apps/docs/.vitepress/config.js文件的vite.plugins内添加：vueJsx({include: /\.(jsx|tsx)$/,})，当然别忘了引入：import vueJsx from '@vitejs/plugin-vue-jsx';
+      - apps/docs/package.json配置【"type": "module"】
+      - apps/docs/.vitepress/theme/components/WujieContainer.vue内<script setup lang="jsx">
+11. 改造完，运行起来后，发现现有功能：预览组件库演示内的Button、Icon组件时，示例丢了，如下图
+    1.  ![alt text](image.png)
+    2.  ![alt text](image-1.png)
+    3.  解决办法：
+        1.  apps/docs/.vitepress/config.js文件内，plugins下vueJsx配置项内添加：exclude: [/packages\/ui/]
+        2.  根目录下安装：pnpm install @vitejs/plugin-react -w
+        3.  具体配置详见apps/docs/.vitepress/config.js文件
+    4.  JSX解析失败解决后，又发现别名错误、别名未生效，VitePress 在 dev 阶段找不到 @ui-demo/ui 对应的真实文件。![alt text](image-2.png)
+        1.  核心问题：.vitepress/config.js配置了别名，但是路径不对
+        2.  vueJsx启用时错误的接管/干扰 packages/ui 里的 React TSX 文件解析。
+        3.  暂时将vueJsx禁用【该死的语法糖】
+            1.  禁用的概念：只服务于 apps/docs 下的 .vue 文件
+            2.  禁止 vueJsx 插件对 packages/ui 下的 .vue 文件进行解析
+            3.  具体配置详见apps/docs/.vitepress/config.js文件
+            4.  说这么多，来个终结大法，直接不在vue文件内使用jsx语法‼️‼️‼️梦幻联动end🏮，修改apps/docs/.vitepress/theme/components/WujieContainer.vue
+                1.  然后请无情的卸载掉【@vitejs/plugin-vue-jsx】
+                2.  现在去运行pnpm start:wujie，一跑一个不吱声
+12. ✅ 验证"通信能力" - 已完成
+    1.  使用 Wujie 提供的 props 或 bus (事件总线) 来实现双向通信。👍
+        1.  基座 -> 微应用（主题变化）： 通过 Vue 的响应式 computed 属性绑定到 props，Wujie 自动发送 props-change 事件。
+        2.  微应用 -> 基座（事件/函数）： 通过将函数作为 props 传递，微应用直接调用该函数。
+        3.  你以为 $wujie ≈ window.wujie，但它们完全不同。‼️‼️‼️
+    2.  主题同步：基座向微应用传递数据 为例，实现一个最简单的 主题同步 功能。基座 (Vue) 告诉微应用 (React)："当前是暗黑模式"，微应用接收后切换自身的样式。
+        1.  基座 (Vue/VitePress) 侧：传递 Props，修改 WujieContainer.vue 文件，利用 <Wujie> 组件的 props 属性来传递数据。
+        2.  配置完记得重启工程哟‼️‼️‼️
+        3.  第一步内完成了单向传递，现在apps/playground/src/main.tsx内调用公共方法，验证双向通信，同时需要修改：apps/playground/src/App.tsx
+        4.  配置完记得重启工程哟‼️‼️‼️
+        5.  apps/docs/.vitepress/theme/index.js内注册全局方法挂载到window上
+        6.  apps/playground/vite.config.ts内配置端口、以及开启跨域
+
+<!-- 【问题分析】Wujie 微前端通信问题根因分析 -->
+13. 【问题分析】Wujie 微前端通信问题根因分析 ⚠️⚠️⚠️
+    1. 问题现象
+       1. 子应用无法接收基座传递的 props
+       2. 基座无法与子应用通信
+       3. "微应用加载中..." 一直显示，无法进入已加载状态
+       4. 控制台错误：`[wujie warn]: load 事件已经发送过! undefined`
+    2. 根本原因分析 🔍
+       1. **错误认知 #1：`window.wujie` vs `window.$wujie`**
+          - ❌ 错误做法：在子应用中使用 `window.wujie` 访问 Wujie 对象
+          - ✅ 正确做法：在子应用中使用 `window.$wujie` 访问 Wujie 对象
+          - 原因：Wujie 在 iframe.js 中明确定义了 `iframeWindow.$wujie = wujie.provide;`
+          - 这是 Wujie 的设计，`$wujie` 是子应用 iframe 中的全局对象，而 `wujie` 不存在
+       2. **错误认知 #2：基座中获取微应用实例的方式**
+          - ❌ 错误做法：在基座中尝试通过 `window.$wujie?.getInstance?.(name)` 获取微应用实例
+          - ✅ 正确做法：基座应该使用 Wujie 提供的全局 `bus` 对象进行通信
+          - 原因：`window.$wujie` 是子应用 iframe 中的对象，基座无法直接访问
+          - 基座应该导入 `import { bus as wujiBus } from 'wujie'` 来进行通信
+       3. **错误认知 #3：重复发送 'load' 事件**
+          - ❌ 错误做法：子应用在 `__WUJIE_MOUNT` 中手动发送 'load' 事件
+          - ✅ 正确做法：让 Wujie 自动处理 'load' 事件
+          - 原因：Wujie 框架会在子应用挂载完成后自动发送 'load' 事件
+          - 手动发送会导致重复发送，触发警告
+       4. **错误认知 #4：基座与子应用的通信方式**
+          - ❌ 错误做法：基座尝试获取微应用实例后调用其 bus 方法
+          - ✅ 正确做法：基座直接使用全局 `bus` 对象，子应用通过 `window.$wujie.bus` 监听
+          - 原因：Wujie 的 bus 是全局的事件总线，基座和子应用共享同一个 bus
+    3. 解决方案总结 ✅
+       1. **子应用端 (apps/playground/src/main.tsx)**
+          - 使用 `window.$wujie?.props` 访问基座传递的 props
+          - 使用 `window.$wujie?.bus?.$on()` 监听基座发送的事件
+          - 使用 `window.$wujie?.bus?.$emit()` 向基座发送事件
+          - 不要手动发送 'load' 事件，让 Wujie 自动处理
+       2. **基座端 (apps/docs/.vitepress/theme/components/WujieContainer.vue)**
+          - 导入 Wujie 的 bus：`import { bus as wujiBus } from 'wujie'`
+          - 使用 `wujiBus.$emit('props-change', data)` 向子应用发送事件
+          - 使用 `wujiBus.$on('micro-to-base', handler)` 监听子应用发送的事件
+          - 不要尝试获取微应用实例，直接使用 bus 通信
+       3. **通信流程**
+          - 基座 → 子应用：`wujiBus.$emit('props-change', { theme: 'dark' })`
+          - 子应用监听：`window.$wujie?.bus?.$on?.('props-change', handler)`
+          - 子应用 → 基座：`window.$wujie?.bus?.$emit?.('micro-to-base', msg)`
+          - 基座监听：`wujiBus.$on('micro-to-base', handler)`
+    4. 关键要点记录 📝
+       - Wujie 的 bus 是全局的事件总线，基座和子应用共享
+       - `$wujie` 是子应用 iframe 中的对象，包含 props 和 bus
+       - 基座无法直接访问子应用的 `window.$wujie`，只能通过 bus 通信
+       - Props 通过 WujieReact 组件的 props 属性传递，自动设置到 `window.$wujie.props`
+       - 'load' 事件由 Wujie 框架自动发送，不需要手动发送
