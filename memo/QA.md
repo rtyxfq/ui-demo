@@ -256,50 +256,42 @@
        2. 基座无法与子应用通信
        3. "微应用加载中..." 一直显示，无法进入已加载状态
        4. 控制台错误：`[wujie warn]: load 事件已经发送过! undefined`
-    
     2. 根本原因分析 🔍
        1. **错误认知 #1：`window.wujie` vs `window.$wujie`**
           - ❌ 错误做法：在子应用中使用 `window.wujie` 访问 Wujie 对象
           - ✅ 正确做法：在子应用中使用 `window.$wujie` 访问 Wujie 对象
           - 原因：Wujie 在 iframe.js 中明确定义了 `iframeWindow.$wujie = wujie.provide;`
           - 这是 Wujie 的设计，`$wujie` 是子应用 iframe 中的全局对象，而 `wujie` 不存在
-       
        2. **错误认知 #2：基座中获取微应用实例的方式**
           - ❌ 错误做法：在基座中尝试通过 `window.$wujie?.getInstance?.(name)` 获取微应用实例
           - ✅ 正确做法：基座应该使用 Wujie 提供的全局 `bus` 对象进行通信
           - 原因：`window.$wujie` 是子应用 iframe 中的对象，基座无法直接访问
           - 基座应该导入 `import { bus as wujiBus } from 'wujie'` 来进行通信
-       
        3. **错误认知 #3：重复发送 'load' 事件**
           - ❌ 错误做法：子应用在 `__WUJIE_MOUNT` 中手动发送 'load' 事件
           - ✅ 正确做法：让 Wujie 自动处理 'load' 事件
           - 原因：Wujie 框架会在子应用挂载完成后自动发送 'load' 事件
           - 手动发送会导致重复发送，触发警告
-       
        4. **错误认知 #4：基座与子应用的通信方式**
           - ❌ 错误做法：基座尝试获取微应用实例后调用其 bus 方法
           - ✅ 正确做法：基座直接使用全局 `bus` 对象，子应用通过 `window.$wujie.bus` 监听
           - 原因：Wujie 的 bus 是全局的事件总线，基座和子应用共享同一个 bus
-    
     3. 解决方案总结 ✅
        1. **子应用端 (apps/playground/src/main.tsx)**
           - 使用 `window.$wujie?.props` 访问基座传递的 props
           - 使用 `window.$wujie?.bus?.$on()` 监听基座发送的事件
           - 使用 `window.$wujie?.bus?.$emit()` 向基座发送事件
           - 不要手动发送 'load' 事件，让 Wujie 自动处理
-       
        2. **基座端 (apps/docs/.vitepress/theme/components/WujieContainer.vue)**
           - 导入 Wujie 的 bus：`import { bus as wujiBus } from 'wujie'`
           - 使用 `wujiBus.$emit('props-change', data)` 向子应用发送事件
           - 使用 `wujiBus.$on('micro-to-base', handler)` 监听子应用发送的事件
           - 不要尝试获取微应用实例，直接使用 bus 通信
-       
        3. **通信流程**
           - 基座 → 子应用：`wujiBus.$emit('props-change', { theme: 'dark' })`
           - 子应用监听：`window.$wujie?.bus?.$on?.('props-change', handler)`
           - 子应用 → 基座：`window.$wujie?.bus?.$emit?.('micro-to-base', msg)`
           - 基座监听：`wujiBus.$on('micro-to-base', handler)`
-    
     4. 关键要点记录 📝
        - Wujie 的 bus 是全局的事件总线，基座和子应用共享
        - `$wujie` 是子应用 iframe 中的对象，包含 props 和 bus
