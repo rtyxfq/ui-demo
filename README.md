@@ -2,8 +2,8 @@
   - 它包含了最新的 V8 引擎，对现代 JavaScript 语法（如 ES Modules、Promise API 等）有最好的支持，并且享受官方的长期维护和安全补丁。
 - Monorepo（单体仓库）
   - 是一个“架构思想”或“管理策略”，而不是一个具体的软件或库。
-  - 工具： pnpm、Turborepo、Lerna、Nx。
-  - 配置： pnpm-workspace.yaml、turbo.json、lerna.json。
+  - 工具： pnpm✅、Turborepo、Lerna、Nx。
+  - 配置： pnpm-workspace.yaml✅、turbo.json、lerna.json。
   - "private": true避免将包发布到npm
 
 <!-- 具体细节详见[standards/QA.md] -->
