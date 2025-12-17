@@ -36,14 +36,14 @@
 ### 安装
 
 ```bash
-# 使用 pnpm（推荐）
-pnpm install @ui-demo/ui
+# 使用 pnpm（推荐）根目录下执行【在根目录执行 pnpm install 会自动安装所有 workspace 包的依赖。‼️】
+pnpm install
 
 # 使用 npm
-npm install @ui-demo/ui
+npm install
 
 # 使用 yarn
-yarn add @ui-demo/ui
+yarn
 ```
 
 ### React 中使用
