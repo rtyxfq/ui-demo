@@ -16,7 +16,7 @@ import { VueSkeleton, VueSkeletonGroup } from '@ui-demo/ui'
 
 ## 基础用法
 
-<script setup>
+<script setup lang="tsx">
 import { Skeleton, SkeletonGroup, VueSkeleton, VueSkeletonGroup } from '@ui-demo/ui'
 
 // 组合骨架屏 Demo
