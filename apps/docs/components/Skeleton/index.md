@@ -18,6 +18,30 @@ import { VueSkeleton, VueSkeletonGroup } from '@ui-demo/ui'
 
 <script setup>
 import { Skeleton, SkeletonGroup, VueSkeleton, VueSkeletonGroup } from '@ui-demo/ui'
+
+// 组合骨架屏 Demo
+const SkeletonGroupDemo = () => (
+  <SkeletonGroup>
+    <Skeleton width={40} height={40} borderRadius="50%" />
+    <div style={{ flex: 1 }}>
+      <Skeleton width="100%" height={20} />
+      <Skeleton width="80%" height={16} style={{ marginTop: 8 }} />
+    </div>
+  </SkeletonGroup>
+)
+
+const VueSkeletonGroupDemo = {
+  components: { VueSkeletonGroup, VueSkeleton },
+  template: `
+    <VueSkeletonGroup>
+      <VueSkeleton width="40" height="40" border-radius="50%" />
+      <div style="flex: 1">
+        <VueSkeleton width="100%" height="20" />
+        <VueSkeleton width="80%" height="16" style="margin-top: 8px" />
+      </div>
+    </VueSkeletonGroup>
+  `
+}
 </script>
 
 ### 简单骨架屏
@@ -86,31 +110,6 @@ import { Skeleton, SkeletonGroup, VueSkeleton, VueSkeletonGroup } from '@ui-demo
 />
 
 ## 组合骨架屏
-
-<script setup>
-const SkeletonGroupDemo = () => (
-  <SkeletonGroup>
-    <Skeleton width={40} height={40} borderRadius="50%" />
-    <div style={{ flex: 1 }}>
-      <Skeleton width="100%" height={20} />
-      <Skeleton width="80%" height={16} style={{ marginTop: 8 }} />
-    </div>
-  </SkeletonGroup>
-)
-
-const VueSkeletonGroupDemo = {
-  components: { VueSkeletonGroup, VueSkeleton },
-  template: `
-    <VueSkeletonGroup>
-      <VueSkeleton width="40" height="40" border-radius="50%" />
-      <div style="flex: 1">
-        <VueSkeleton width="100%" height="20" />
-        <VueSkeleton width="80%" height="16" style="margin-top: 8px" />
-      </div>
-    </VueSkeletonGroup>
-  `
-}
-</script>
 
 <FrameworkTabs
   :react-component="SkeletonGroupDemo"
