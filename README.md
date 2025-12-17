@@ -43,16 +43,33 @@
 ├── apps/ - 可运行/可部署的消费者 (Consumer Applications)。目录容纳了所有需要被编译、部署或作为独立环境运行的 应用程序。它们是组件库的消费者，而不是生产者。
 │ ├── docs/ - 组件库组件预览文档
 │ └── playground/ - 组件库演示【专注于生成可部署的、面向终端用户的应用产物。永远只对 最终用户 负责‼️】
-├── memo/ - 备忘录
-│ ├── Branch.md - 分支管理
-│ ├── GitCommitEmoji.md - Git提交Emoji
-│ ├── QA.md - 问题沉淀
-│ ├── TaskList.md - 任务列表
-│ ├── TechStack.md - 完整项目技术栈规划
-│ └── TerminalCommands.md - 终端命令
-├── packages/ - 组件库
-│ ├── ui/ - 组件库代码【专注于生成可复用的、干净的库产物。永远只对 开发者 负责‼️】
-│ └── test/ - 组件库测试代码
+├── memo/ - 项目文档和备忘录
+│ ├── QA/ - 问题沉淀和解决方案
+│ │   ├── QA-0001.md - 项目规划和讨论
+│ │   ├── TechStack.md - 完整技术栈规划
+│ │   ├── VueReactStrategy.md - Vue 3 + React 混合战略
+│ │   └── VueComponentDevelopmentGuide.md - Vue 组件开发指南
+│ ├── TaskList.md - 项目任务列表（8 个阶段）
+│ ├── Branch.md - 分支管理规范
+│ ├── GitCommitEmoji.md - Git 提交 Emoji 规范
+│ └── TerminalCommands.md - 常用终端命令
+│
+├── packages/ - 组件库和工具库
+│ ├── ui/ - 企业级 React + Vue 3 组件库【专注于生成可复用的、干净的库产物。永远只对 开发者 负责‼️】
+│ │   ├── src/
+│ │   │   ├── components/ - 组件源代码
+│ │   │   │   ├── Button/ - Button 组件（React + Vue 3）✅
+│ │   │   │   ├── Icon/ - Icon 组件 ✅
+│ │   │   │   └── Input/ - Input 组件（开发中）
+│ │   │   ├── styles/ - 全局样式和主题
+│ │   │   └── index.ts - 导出入口
+│ │   └── package.json
+│ ├── hooks/ - React Hooks 库（待开发）
+│ ├── composables/ - Vue 3 Composables 库（待开发）
+│ ├── utils/ - 通用工具函数库（待开发）
+│ ├── store/ - 状态管理库（待开发）
+│ ├── ai-sdk/ - AI 集成库（待开发）
+│ └── monitor/ - 性能监控库（待开发）
 ├── package.json - 组件库配置
 ├── pnpm-lock.yaml - pnpm 锁文件
 ├── pnpm-workspace.yaml - pnpm 工作区配置
