@@ -73,7 +73,10 @@ const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
       <div
         ref={ref}
         className={skeletonClass}
-        style={skeletonStyle}
+        style={{
+          ...skeletonStyle,
+          display: 'inline-block',
+        }}
         {...rest}
       />
     )

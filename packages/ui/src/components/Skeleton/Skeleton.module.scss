@@ -9,6 +9,8 @@
   background-color: var(--skeleton-base-color, #e5e7eb);
   border-radius: var(--skeleton-border-radius, 4px);
   overflow: hidden;
+  width: 100%;
+  height: 100%;
   
   // 默认动画是 shimmer
   &.shimmer {
@@ -24,6 +26,7 @@
 
   // 脉冲动画
   &.pulse {
+    background-color: var(--skeleton-base-color, #e5e7eb);
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 

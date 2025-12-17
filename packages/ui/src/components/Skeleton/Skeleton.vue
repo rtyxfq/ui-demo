@@ -20,7 +20,10 @@
   <div
     v-else
     :class="skeletonClass"
-    :style="skeletonStyle"
+    :style="{
+      ...skeletonStyle,
+      display: 'inline-block',
+    }"
   />
 </template>
 
@@ -84,6 +87,7 @@ const skeletonClass = computed(() =>
 
   // 脉冲动画
   &.pulse {
+    background-color: var(--skeleton-base-color, #e5e7eb);
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
