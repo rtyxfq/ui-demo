@@ -1,15 +1,26 @@
 // packages/ui/vite.config.ts
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import { resolve } from 'path';
-import dts from 'vite-plugin-dts'; // 导入 dts 插件
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import vue from '@vitejs/plugin-vue'
+import { resolve } from 'path'
+import dts from 'vite-plugin-dts'
 
 export default defineConfig({
   plugins: [
     react(),
+    vue({
+      // Vue 3 插件配置
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => tag.startsWith('ion-'),
+        },
+      },
+    }),
     dts({
-      insertTypesEntry: true, // 确保生成一个类型入口文件
-    })
+      insertTypesEntry: true,
+      // 支持 .vue 文件的类型生成
+      include: ['src/**/*.ts', 'src/**/*.tsx', 'src/**/*.vue'],
+    }),
   ],
   build: {
     lib: {
@@ -21,14 +32,15 @@ export default defineConfig({
       fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
-      // 关键：确保 react 和 react-dom 不会被打包进你的库里，避免包体积膨胀
-      // 因为使用者（如 playground）通过 peerDependencies 已经安装了它们
-      external: ['react', 'react-dom'],
+      // 确保 react、react-dom 和 vue 不会被打包进库里
+      // 因为使用者通过 peerDependencies 已经安装了它们
+      external: ['react', 'react-dom', 'vue'],
       output: {
         // 在 UMD 模式下为外部依赖提供全局变量
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
+          vue: 'Vue',
         },
       },
     },
@@ -37,4 +49,7 @@ export default defineConfig({
     // 清空输出目录
     emptyOutDir: true,
   },
-});
+  resolve: {
+    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
+  },
+})

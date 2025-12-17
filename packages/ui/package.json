@@ -1,7 +1,7 @@
 {
   "name": "@ui-demo/ui",
   "version": "1.0.0",
-  "description": "",
+  "description": "Enterprise-grade React + Vue 3 component library",
   "type": "module",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
@@ -15,23 +15,57 @@
   },
   "scripts": {
     "build": "vite build",
-    "generate:icons": "svgr --config-file ../../svgr.config.js -d src/components/Icon/generated -- src/assets/icons"
+    "dev": "vite",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "generate:icons": "svgr --config-file ../../svgr.config.js -d src/components/Icon/generated -- src/assets/icons",
+    "lint": "eslint src --ext .ts,.tsx,.vue",
+    "type-check": "tsc --noEmit"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "react",
+    "vue3",
+    "component-library",
+    "ui-components",
+    "typescript"
+  ],
+  "author": "zzg",
   "license": "ISC",
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "vue": "^3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    }
+  },
   "devDependencies": {
+    "@svgr/cli": "^8.1.0",
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "@vue/test-utils": "^2.4.3",
+    "@vitest/ui": "^1.0.4",
+    "eslint": "^8.55.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "sass": "^1.94.2",
     "typescript": "~5.9.3",
     "vite": "^7.2.4",
-    "vite-plugin-dts": "^4.5.4"
+    "vite-plugin-dts": "^4.5.4",
+    "vitest": "^1.0.4",
+    "vue": "^3.3.11"
   },
-  "dependencies": {
-    "@svgr/cli": "^8.1.0"
-  }
+  "dependencies": {}
 }
