@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import type { SkeletonProps, SkeletonGroupProps } from './Skeleton'
 import { getSkeletonStyle, getSkeletonClasses, getSkeletonGroupStyle, getSkeletonGroupClasses } from './Skeleton'
-import styles from './Skeleton.module.scss'
+import './Skeleton.scss'
 
 /**
  * Skeleton 组件 - React 版本
@@ -41,7 +41,7 @@ const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
 
     // 计算类名
     const skeletonClass = useMemo(
-      () => getSkeletonClasses(styles.skeleton, animation, className),
+      () => getSkeletonClasses('ui-skeleton', animation, className),
       [animation, className]
     )
 
@@ -112,7 +112,7 @@ const SkeletonGroup = React.forwardRef<HTMLDivElement, SkeletonGroupProps & { ch
 
     // 计算类名
     const groupClass = useMemo(
-      () => getSkeletonGroupClasses(styles.skeletonGroup, direction, className),
+      () => getSkeletonGroupClasses('ui-skeleton-group', direction, className),
       [direction, className]
     )
 
