@@ -11,15 +11,106 @@
 **目标：打造企业级组件库基础**
 
 ### 技术栈
+
+#### 统一组件库 (packages/ui - 支持 React + Vue 3)
 ```
-框架：React 19 + TypeScript 5.9
+框架：React 19 + Vue 3 + TypeScript 5.9
 构建：Vite 7.2
-样式：SCSS + CSS Modules
-表单：React Hook Form 7.48 + Zod 3.22
-表格：TanStack React Table 8.13 + react-window 1.8
-动画：framer-motion 10.16
-日期：react-day-picker 8.9 + date-fns 2.30
-文档：Storybook 7.6
+样式：SCSS + CSS Modules (共享)
+类型定义：TypeScript (共享)
+
+React 组件：
+- 表单：React Hook Form 7.48 + Zod 3.22
+- 表格：TanStack React Table 8.13 + react-window 1.8
+- 动画：framer-motion 10.16
+- 日期：react-day-picker 8.9 + date-fns 2.30
+
+Vue 3 组件：
+- 表单：VeeValidate 4.12 + Zod 3.22
+- 表格：自定义虚拟滚动实现
+- 动画：Transition + CSS
+- 日期：vue-datepicker 8.0
+
+共享资源：
+- 样式：SCSS 主题变量和 CSS Modules
+- 工具函数：packages/utils
+- 类型定义：TypeScript interfaces
+- 文档：Storybook 7.6 (支持 React + Vue)
+```
+
+#### 组件库结构
+```
+packages/ui/src/components/
+├── Button/
+│   ├── Button.tsx (React)
+│   ├── Button.vue (Vue 3)
+│   ├── Button.ts (核心逻辑)
+│   ├── Button.module.scss (共享样式)
+│   └── Button.test.tsx/.vue (测试)
+├── Input/
+│   ├── Input.tsx (React)
+│   ├── Input.vue (Vue 3)
+│   ├── Input.ts (核心逻辑)
+│   └── Input.module.scss
+├── Select/
+├── Checkbox/
+├── Radio/
+├── Textarea/
+├── DatePicker/
+├── TimePicker/
+├── Upload/
+├── Modal/
+├── Drawer/
+├── Toast/Alert/
+├── Popover/Tooltip/
+├── Tabs/
+├── Breadcrumb/
+├── Menu/
+├── Pagination/
+├── Tree/
+├── Cascader/
+├── DynamicForm/ (复杂表单)
+├── VirtualTable/ (虚拟滚动表格)
+└── Skeleton/ (骨架屏)
+
+packages/ui/src/
+├── styles/
+│   ├── theme.scss (主题变量)
+│   ├── variables.scss (全局变量)
+│   └── mixins.scss (SCSS mixins)
+├── types/
+│   └── index.ts (共享类型定义)
+└── utils/
+    └── index.ts (共享工具函数)
+```
+
+#### 导出方式
+```typescript
+// packages/ui/src/index.ts
+
+// React 导出
+export { Button as ReactButton } from './components/Button/Button.tsx'
+export { Input as ReactInput } from './components/Input/Input.tsx'
+// ... 其他 React 组件
+
+// Vue 3 导出
+export { default as VueButton } from './components/Button/Button.vue'
+export { default as VueInput } from './components/Input/Input.vue'
+// ... 其他 Vue 组件
+
+// 共享导出
+export * from './types'
+export * from './utils'
+```
+
+#### 文档
+```
+Storybook 7.6 支持：
+- React 组件 stories
+- Vue 3 组件 stories
+- 共享的设计系统文档
+- 组件 API 文档
+- 使用示例
 ```
 
 ### UI 库 - 基础组件
