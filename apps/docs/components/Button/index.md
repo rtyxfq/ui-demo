@@ -1,201 +1,210 @@
 # Button 按钮
 
-这是我们组件库的基础按钮组件。
+这是我们组件库的基础按钮组件，支持 React 和 Vue 3。
 
 ## 导入
 
+### React
 ```ts
-import { Button, Icon } from '@ui-demo/ui';
+import { Button, Icon } from '@ui-demo/ui'
 ```
 
-## React 使用示例
-
-```tsx
-<Button onClick={() => console.log('Click event fired')}>
-  <Icon name="download" size="medium" style={{ marginRight: '8px' }} />
-  Monorepo Docs Button
-</Button>
+### Vue 3
+```ts
+import { VueButton, VueIcon } from '@ui-demo/ui'
 ```
 
-## 类型
+## 基础用法
 
 <script setup>
-import { Button } from '@ui-demo/ui';
-const ReactButton = Button;
-const ReactLink = Button;
-import { ButtonIconDemo } from './ButtonIconDemo';
+import { Button, VueButton } from '@ui-demo/ui'
+import { Icon } from '@ui-demo/ui'
+
+const handleClick = () => alert('Button clicked!')
 </script>
-<div style="display: flex; gap: 20px; flex-wrap: wrap;">
 
-  <ReactWrapper
-    :component="ReactButton"
-    :props="{
-      children: '基础（Default）',
-      type: 'default',
-      onClick: () => alert('Default')
-    }"
-  />
+<FrameworkTabs
+  :react-component="Button"
+  :react-props="{
+    children: '点击我',
+    type: 'primary',
+    onClick: handleClick
+  }"
+  :vue-component="VueButton"
+  :vue-props="{
+    type: 'primary',
+    onClick: handleClick
+  }"
+>
+  <template #default>
+    点击我
+  </template>
+</FrameworkTabs>
 
-  <ReactWrapper
-    :component="ReactButton"
-    :props="{
-      children: '主要（Primary）',
-      type: 'primary',
-      onClick: () => alert('Primary')
-    }"
-  />
+## 按钮类型
 
-  <ReactWrapper
-    :component="ReactButton"
-    :props="{
-      children: '成功（Success）',
-      type: 'success',
-      onClick: () => alert('Success')
-    }"
-  />
+### 基础类型
 
-  <ReactWrapper
-    :component="ReactButton"
-    :props="{
-      children: '危险（Danger）',
-      type: 'danger', onClick: () => alert('Danger')
-    }"
-  />
+<div style="display: flex; gap: 12px; flex-wrap: wrap; margin: 16px 0;">
+  <FrameworkTabs
+    :react-component="Button"
+    :react-props="{ children: 'Default', type: 'default' }"
+    :vue-component="VueButton"
+    :vue-props="{ type: 'default' }"
+  >
+    <template #default>Default</template>
+  </FrameworkTabs>
 
-  <ReactWrapper
-    :component="ReactButton"
-    :props="{
-      children: '禁用状态（Disabled）',
-      disabled: true
-    }"
-  />
+  <FrameworkTabs
+    :react-component="Button"
+    :react-props="{ children: 'Primary', type: 'primary' }"
+    :vue-component="VueButton"
+    :vue-props="{ type: 'primary' }"
+  >
+    <template #default>Primary</template>
+  </FrameworkTabs>
 
-  <ReactWrapper
-    :component="ReactButton"
-    :props="{
-      children: '成功类型下禁用状态',
-      type: 'success',
-      disabled: true
-    }"
-  />
+  <FrameworkTabs
+    :react-component="Button"
+    :react-props="{ children: 'Success', type: 'success' }"
+    :vue-component="VueButton"
+    :vue-props="{ type: 'success' }"
+  >
+    <template #default>Success</template>
+  </FrameworkTabs>
 
-  <ReactWrapper
-    :component="ReactButton"
-    :props="{
-      children: '文本类型',
-      type: 'text',
-    }"
-  />
+  <FrameworkTabs
+    :react-component="Button"
+    :react-props="{ children: 'Danger', type: 'danger' }"
+    :vue-component="VueButton"
+    :vue-props="{ type: 'danger' }"
+  >
+    <template #default>Danger</template>
+  </FrameworkTabs>
 
+  <FrameworkTabs
+    :react-component="Button"
+    :react-props="{ children: 'Warning', type: 'warning' }"
+    :vue-component="VueButton"
+    :vue-props="{ type: 'warning' }"
+  >
+    <template #default>Warning</template>
+  </FrameworkTabs>
+
+  <FrameworkTabs
+    :react-component="Button"
+    :react-props="{ children: 'Text', type: 'text' }"
+    :vue-component="VueButton"
+    :vue-props="{ type: 'text' }"
+  >
+    <template #default>Text</template>
+  </FrameworkTabs>
 </div>
 
-## 链接
-<div style="display: flex; gap: 20px; flex-wrap: wrap;">
-  <ReactWrapper
-    :component="ReactLink"
-    :props="{
-      children: '链接',
-      type: 'link',
-      href: 'https://ui-demo.vercel.app'
-    }"
-  />
+## 按钮大小
 
-  <ReactWrapper
-    :component="ReactLink"
-    :props="{
-      children: '链接打开新窗口',
-      href: 'https://ui-demo.vercel.app',
-      target: '_blank',
-      type: 'link'
-    }"
-  />
+<div style="display: flex; gap: 12px; flex-wrap: wrap; margin: 16px 0;">
+  <FrameworkTabs
+    :react-component="Button"
+    :react-props="{ children: 'Mini', type: 'primary', size: 'mini' }"
+    :vue-component="VueButton"
+    :vue-props="{ type: 'primary', size: 'mini' }"
+  >
+    <template #default>Mini</template>
+  </FrameworkTabs>
+
+  <FrameworkTabs
+    :react-component="Button"
+    :react-props="{ children: 'Small', type: 'primary', size: 'small' }"
+    :vue-component="VueButton"
+    :vue-props="{ type: 'primary', size: 'small' }"
+  >
+    <template #default>Small</template>
+  </FrameworkTabs>
+
+  <FrameworkTabs
+    :react-component="Button"
+    :react-props="{ children: 'Default', type: 'primary' }"
+    :vue-component="VueButton"
+    :vue-props="{ type: 'primary' }"
+  >
+    <template #default>Default</template>
+  </FrameworkTabs>
+
+  <FrameworkTabs
+    :react-component="Button"
+    :react-props="{ children: 'Large', type: 'primary', size: 'large' }"
+    :vue-component="VueButton"
+    :vue-props="{ type: 'primary', size: 'large' }"
+  >
+    <template #default>Large</template>
+  </FrameworkTabs>
 </div>
 
-## 图标
+## 禁用状态
 
-<div style="display: flex; gap: 20px; flex-wrap: wrap;">
-  <ReactWrapper
-    :component="ButtonIconDemo"
-    :props="{
-      type: 'primary',
-      onClick: () => alert('Download')
-    }"
-  />
+<div style="display: flex; gap: 12px; flex-wrap: wrap; margin: 16px 0;">
+  <FrameworkTabs
+    :react-component="Button"
+    :react-props="{ children: 'Disabled', type: 'primary', disabled: true }"
+    :vue-component="VueButton"
+    :vue-props="{ type: 'primary', disabled: true }"
+  >
+    <template #default>Disabled</template>
+  </FrameworkTabs>
+
+  <FrameworkTabs
+    :react-component="Button"
+    :react-props="{ children: 'Disabled', type: 'default', disabled: true }"
+    :vue-component="VueButton"
+    :vue-props="{ type: 'default', disabled: true }"
+  >
+    <template #default>Disabled</template>
+  </FrameworkTabs>
 </div>
 
-## 尺寸
+## 加载状态
 
-<div style="display: flex; gap: 20px; flex-wrap: wrap;">
-  <ReactWrapper
-    :component="ReactButton"
-    :props="{
-      children: '默认',
-      type: 'primary',
-    }"
-  />
-  <ReactWrapper
-    :component="ReactButton"
-    :props="{
-      children: '大（Large）',
-      type: 'primary',
-      size: 'large'
-    }"
-  />
-  <ReactWrapper
-    :component="ReactButton"
-    :props="{
-      children: '中（Medium）',
-      type: 'primary',
-      size: 'medium'
-    }"
-  />
-  <ReactWrapper
-    :component="ReactButton"
-    :props="{
-      children: '小（Small）',
-      type: 'primary',
-      size: 'small'
-    }"
-  />
-  <ReactWrapper
-    :component="ReactButton"
-    :props="{
-      children: '迷你（Mini）',
-      type: 'primary',
-      size: 'mini'
-    }"
-  />
-</div>
+<div style="display: flex; gap: 12px; flex-wrap: wrap; margin: 16px 0;">
+  <FrameworkTabs
+    :react-component="Button"
+    :react-props="{ children: 'Loading', type: 'primary', loading: true }"
+    :vue-component="VueButton"
+    :vue-props="{ type: 'primary', loading: true }"
+  >
+    <template #default>Loading</template>
+  </FrameworkTabs>
 
-## 加载中
-<div style="display: flex; gap: 20px; flex-wrap: wrap;">
-  <ReactWrapper
-    :component="ReactButton"
-    :props="{
-      children: '加载中',
-      type: 'primary',
-      loading: true,
-    }"
-  />
-
-  <ReactWrapper
-    :component="ReactButton"
-    :props="{
-      children: '加载中',
-      type: 'primary',
-      loading: true,
-      spin: true
-    }"
-  />
+  <FrameworkTabs
+    :react-component="Button"
+    :react-props="{ children: 'Loading', type: 'primary', loading: true, spin: true }"
+    :vue-component="VueButton"
+    :vue-props="{ type: 'primary', loading: true, spin: true }"
+  >
+    <template #default>Loading</template>
+  </FrameworkTabs>
 </div>
 
 ## API
 
-| 属性 | 描述 | 类型 | 默认值/参考值 | 版本 |
+| 属性 | 描述 | 类型 | 默认值 | 版本 |
 | :--- | :--- | :--- | :--- | :--- |
-| disabled | 按钮是否禁用 | `boolean` | `false` | 1.0.0 |
-| className | 自定义样式类名 | `string` | `-` | 1.1.0 |
-| children | 按钮内容 | `ReactNode` | `'Button'` | 1.1.0 |
-| type | 按钮类型 | `string` | `'primary'、'default' 、'success'、'danger' 、 'warning' 、 'text'` | 1.1.0 |
-| size | 按钮大小 | `string` | `'mini'、'small'、'medium'、'large'` | 1.1.0 |
-| loading | 按钮是否加载icon | `boolean` | `false` | 1.0.0 |
+| type | 按钮类型 | `'primary' \| 'default' \| 'success' \| 'danger' \| 'warning' \| 'text' \| 'link'` | `'default'` | 1.0.0 |
+| size | 按钮大小 | `'mini' \| 'small' \| 'medium' \| 'large'` | `'default'` | 1.0.0 |
+| disabled | 是否禁用 | `boolean` | `false` | 1.0.0 |
+| loading | 是否加载中 | `boolean` | `false` | 1.0.0 |
+| spin | 加载图标是否旋转 | `boolean` | `false` | 1.0.0 |
+| href | 链接地址（仅 type='link' 时有效） | `string` | `-` | 1.0.0 |
+| target | 链接打开方式 | `'_blank' \| '_self' \| '_parent' \| '_top'` | `-` | 1.0.0 |
+
+## 事件
+
+### React
+| 事件 | 描述 | 回调参数 |
+| :--- | :--- | :--- |
+| onClick | 点击事件 | `(event: MouseEvent) => void` |
+
+### Vue 3
+| 事件 | 描述 | 回调参数 |
+| :--- | :--- | :--- |
+| @click | 点击事件 | `(event: MouseEvent) => void` |
