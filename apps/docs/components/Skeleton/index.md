@@ -16,32 +16,8 @@ import { VueSkeleton, VueSkeletonGroup } from '@ui-demo/ui'
 
 ## 基础用法
 
-<script setup lang="tsx">
+<script setup>
 import { Skeleton, SkeletonGroup, VueSkeleton, VueSkeletonGroup } from '@ui-demo/ui'
-
-// 组合骨架屏 Demo
-const SkeletonGroupDemo = () => (
-  <SkeletonGroup>
-    <Skeleton width={40} height={40} borderRadius="50%" />
-    <div style={{ flex: 1 }}>
-      <Skeleton width="100%" height={20} />
-      <Skeleton width="80%" height={16} style={{ marginTop: 8 }} />
-    </div>
-  </SkeletonGroup>
-)
-
-const VueSkeletonGroupDemo = {
-  components: { VueSkeletonGroup, VueSkeleton },
-  template: `
-    <VueSkeletonGroup>
-      <VueSkeleton width="40" height="40" border-radius="50%" />
-      <div style="flex: 1">
-        <VueSkeleton width="100%" height="20" />
-        <VueSkeleton width="80%" height="16" style="margin-top: 8px" />
-      </div>
-    </VueSkeletonGroup>
-  `
-}
 </script>
 
 ### 简单骨架屏
@@ -111,12 +87,29 @@ const VueSkeletonGroupDemo = {
 
 ## 组合骨架屏
 
-<FrameworkTabs
-  :react-component="SkeletonGroupDemo"
-  :react-props="{}"
-  :vue-component="VueSkeletonGroupDemo"
-  :vue-props="{}"
-/>
+### React 示例
+
+```tsx
+<SkeletonGroup>
+  <Skeleton width={40} height={40} borderRadius="50%" />
+  <div style={{ flex: 1 }}>
+    <Skeleton width="100%" height={20} />
+    <Skeleton width="80%" height={16} style={{ marginTop: 8 }} />
+  </div>
+</SkeletonGroup>
+```
+
+### Vue 3 示例
+
+```vue
+<VueSkeletonGroup>
+  <VueSkeleton width="40" height="40" border-radius="50%" />
+  <div style="flex: 1">
+    <VueSkeleton width="100%" height="20" />
+    <VueSkeleton width="80%" height="16" style="margin-top: 8px" />
+  </div>
+</VueSkeletonGroup>
+```
 
 ## 自定义颜色
 
