@@ -48,6 +48,7 @@
 │ ├── GitCommitEmoji.md - Git提交Emoji
 │ ├── QA.md - 问题沉淀
 │ ├── TaskList.md - 任务列表
+│ ├── TechStack.md - 完整项目技术栈规划
 │ └── TerminalCommands.md - 终端命令
 ├── packages/ - 组件库
 │ ├── ui/ - 组件库代码【专注于生成可复用的、干净的库产物。永远只对 开发者 负责‼️】
