@@ -11,9 +11,9 @@
 
 ## 🎯 核心技术栈
 
-### 基础框架
+### 基础框架（双框架支持）
 ```
-React 19 + TypeScript 5.9 + Vite 7.2
+React 19 + Vue 3 + TypeScript 5.9 + Vite 7.2
 ```
 
 ### 包管理和工作区
@@ -27,14 +27,22 @@ Wujie 1.0.29 + Wujie-React 1.0.29
 ```
 
 ### 状态管理
+
+#### React
 ```
 Zustand 4.4 (轻量级，推荐)
 或 Redux Toolkit (复杂场景)
 ```
 
+#### Vue 3
+```
+Pinia 2.1 (推荐，Vue 官方)
+或 Vuex 4.1 (备选)
+```
+
 ### 样式方案
 ```
-SCSS + CSS Modules + 主题系统
+SCSS + CSS Modules + 主题系统 (共享)
 ```
 
 ### 构建和部署
@@ -46,70 +54,113 @@ Vite 7.2 + GitHub Actions + Docker
 
 ## 📦 各阶段技术选型
 
-### 第一阶段：核心组件库
+### 第一阶段：核心组件库（React + Vue 3 双框架）
 
-#### 表单相关
+#### 共享资源
 ```typescript
-// 表单验证
+// 表单验证（两个框架共用）
 - Zod 3.22 (推荐，轻量级)
 - Yup 1.3 (备选，功能全面)
 
+// 日期处理（两个框架共用）
+- date-fns 2.30
+- dayjs 1.11
+
+// 数据处理（两个框架共用）
+- lodash-es 4.17
+- immer 10.0
+
+// 图标（两个框架共用）
+- lucide-react 0.292 (已使用)
+
+// 样式（两个框架共用）
+- SCSS + CSS Modules
+- 主题变量系统
+```
+
+#### React 特定
+```typescript
 // 表单状态管理
 - React Hook Form 7.48 (推荐)
 - Formik 2.4 (备选)
 
 // 日期选择
 - react-day-picker 8.9
-- date-fns 2.30
-
-// 时间选择
 - react-time-picker 6.1
-```
 
-#### 表格相关
-```typescript
 // 虚拟滚动
 - react-window 1.8 (推荐，轻量级)
-- react-virtualized 9.22 (备选，功能全面)
 - TanStack Virtual (最新推荐)
 
 // 表格组件
 - TanStack React Table 8.13 (推荐，无 UI)
-- react-table 7.8 (备选)
 
-// 数据处理
-- lodash-es 4.17
-- immer 10.0
-```
-
-#### 动画和过渡
-```typescript
 // 动画库
 - framer-motion 10.16 (推荐)
 - react-spring 9.7 (备选)
 
 // 过渡效果
 - react-transition-group 4.4
-```
 
-#### 其他组件库
-```typescript
 // 文件上传
 - react-dropzone 14.2
 
 // 弹出框
 - @floating-ui/react 0.26
 
-// 图标
-- lucide-react 0.292 (已使用)
+// 加载状态
+- nprogress 0.2
+```
+
+#### Vue 3 特定
+```typescript
+// 表单验证
+- VeeValidate 4.12 (推荐)
+- Vuelidate 2.0 (备选)
+
+// 日期选择
+- vue-datepicker 8.0
+- v-calendar 3.0
+
+// 虚拟滚动
+- vue-virtual-scroller 2.0
+- 自定义虚拟滚动实现
+
+// 表格组件
+- 自定义表格实现
+- vue-grid-layout 3.0 (网格布局)
+
+// 动画库
+- Vue Transition (内置)
+- @vueuse/motion 2.0
+
+// 文件上传
+- vue-upload-component 3.0
+
+// 弹出框
+- floating-vue 2.0
 
 // 加载状态
 - nprogress 0.2
 ```
 
+#### 文档和演示
+```typescript
+// 文档
+- Storybook 7.6 (支持 React + Vue)
+- VitePress 1.6 (已使用)
+
+// 组件展示
+- 统一的 Storybook 配置
+- React stories
+- Vue stories
+```
+
 ### 第二阶段：业务应用 + 脚手架
 
 #### 路由
+
+##### React
 ```typescript
 // 路由管理
 - React Router 6.20 (推荐)
@@ -119,7 +170,16 @@ Vite 7.2 + GitHub Actions + Docker
 - 自定义路由配置系统
 ```
 
-#### 认证和权限
+##### Vue 3
+```typescript
+// 路由管理
+- Vue Router 4.2 (推荐)
+
+// 路由配置
+- 自定义路由配置系统
+```
+
+#### 认证和权限（共享）
 ```typescript
 // JWT 处理
 - jsonwebtoken 9.1
@@ -130,7 +190,7 @@ Vite 7.2 + GitHub Actions + Docker
 - RBAC (Role-Based Access Control)
 ```
 
-#### HTTP 请求
+#### HTTP 请求（共享）
 ```typescript
 // HTTP 客户端
 - axios 1.6 (推荐)
@@ -143,13 +203,35 @@ Vite 7.2 + GitHub Actions + Docker
 ```
 
 #### 国际化
+
+##### React
 ```typescript
 // i18n 库
 - i18next 23.7 (推荐)
 - react-i18next 13.5
+```
 
-// 翻译管理
-- 自定义翻译系统
+##### Vue 3
+```typescript
+// i18n 库
+- i18next 23.7 (推荐)
+- vue-i18next 13.5
+```
+
+#### 状态管理
+
+##### React
+```typescript
+// 状态管理
+- Zustand 4.4 (推荐)
+- Redux Toolkit 1.9 (复杂场景)
+```
+
+##### Vue 3
+```typescript
+// 状态管理
+- Pinia 2.1 (推荐)
+- Vuex 4.1 (备选)
 ```
 
 ### 第三阶段：数据大屏
