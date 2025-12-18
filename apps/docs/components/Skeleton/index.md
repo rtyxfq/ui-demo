@@ -119,14 +119,14 @@ import { Skeleton, SkeletonGroup, VueSkeleton, VueSkeletonGroup } from '@ui-demo
     width: 300, 
     height: 20, 
     baseColor: '#f0f0f0',
-    highlightColor: '#e0e0e0'
+    highlightColor: '#6ff680'
   }"
   :vue-component="VueSkeleton"
   :vue-props="{ 
     width: 300, 
     height: 20, 
     baseColor: '#f0f0f0',
-    highlightColor: '#e0e0e0'
+    highlightColor: '#6ff680'
   }"
 />
 
