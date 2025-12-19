@@ -5,7 +5,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "pnpm -F ui test",
+    "test:ui": "pnpm -F ui test:ui",
+    "test:coverage": "pnpm -F ui test:coverage",
     "start:micro:playground": "pnpm -F playground dev --port 3001",
     "start:main:docs": "pnpm -F docs docs:dev",
     "start:wujie": "concurrently \"pnpm start:main:docs\" \"pnpm start:micro:playground\""
