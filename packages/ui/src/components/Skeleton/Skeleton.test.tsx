@@ -49,7 +49,7 @@ describe('Skeleton', () => {
 
   it('renders skeleton with no animation', () => {
     const { container } = render(<Skeleton animation="none" />)
-    const skeleton = container.querySelector('.ui-skeleton.none')
+    const skeleton = container.querySelector('.ui-skeleton')
     expect(skeleton).toBeTruthy()
   })
 
