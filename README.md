@@ -40,7 +40,8 @@
   - 根目录：pnpm start:wujie
 
 <!-- 执行测试用例 -->
-  - 根目录：test:ui
+  - node【22.20.0】
+  - 根目录：pnpm test:ui
 
 ```text
 ├── apps/ - 可运行/可部署的消费者 (Consumer Applications)。目录容纳了所有需要被编译、部署或作为独立环境运行的 应用程序。它们是组件库的消费者，而不是生产者。
